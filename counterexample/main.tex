@@ -1,0 +1,132 @@
+\documentclass[11pt, letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[margin=1.12in]{geometry}
+\usepackage{lmodern}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    pdftitle={A hereditarily atomic domain without ACCP},
+    pdfauthor={AI-authored manuscript}
+}
+\newtheorem{maintheorem}{Theorem}
+\renewcommand{\themaintheorem}{\Alph{maintheorem}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\raggedbottom
+
+\title{A hereditarily atomic domain without ACCP}
+\author{AI-authored manuscript}
+\date{November 17, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    We construct a domain $D$ with fraction field $\mathbb{Q}(t)$ in which every unital subring is atomic, although $(t^2)$ starts an infinite strictly ascending chain of principal ideals.
+    The element $t$ is an atom, and the successive ratios in the chain are multiplicatively independent modulo $\mathbb{Q}^{\times}$.
+    The domain is almost Dedekind, every nonzero proper ideal is a finite product of radical ideals, and its Picard group is a countable direct sum of cyclic groups of order three.
+    A subring of $D$ fails bounded factorization precisely when it has finite additive index.
+    These subrings are exactly $\mathbb{Z} + nD$ for $n \ge 1$, and each fails the ascending chain condition on principal ideals.
+    The proof constructs two $p$-adic evaluations at every rational prime and shows that a subring with unbounded decomposition lengths contains $nD$ as soon as it contains $nt$.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+An integral domain is \emph{atomic} if each nonzero nonunit is a product of irreducible elements, also called \emph{atoms}.
+The ascending chain condition on principal ideals (ACCP) implies atomicity.
+Grams constructed an atomic domain that fails ACCP \cite[Theorem~1.3]{Grams}.
+Coykendall, Gotti and Hasenauer asked whether this can happen when \emph{every} subring is atomic.
+They conjectured that hereditary atomicity is equivalent to hereditary ACCP \cite[Conjecture~6.1]{CGH}.
+Since hereditary atomicity passes to subrings, their conjecture is equivalent to the assertion that every hereditarily atomic domain itself satisfies ACCP.
+All rings in this paper are commutative domains unless indicated otherwise, and subrings contain the same identity.
+
+\begin{maintheorem}
+    \label{thm:main}
+    There is a hereditarily atomic domain $D$ with fraction field $\mathbb{Q}(t)$ and unit group $\{\pm 1\}$ for which $t$ is an atom and $(t^2)$ starts an infinite strictly ascending chain of principal ideals.
+    Its successive ratios can be chosen multiplicatively independent in $\mathbb{Q}(t)^{\times}/\mathbb{Q}^{\times}$.
+    The domain $D$ is an almost Dedekind SP-domain, and
+    \[
+        \operatorname{Pic}(D) \cong \bigoplus_{j \ge 0} \mathbb{Z}/3\mathbb{Z}.
+    \]
+\end{maintheorem}
+
+An \emph{almost Dedekind domain} is a domain whose localizations at maximal ideals are discrete valuation rings.
+An \emph{SP-domain} is one in which every nonzero proper ideal is a finite product of radical ideals.
+A domain is \emph{Pr\"ufer} if each nonzero finitely generated ideal is invertible, or equivalently if its localizations at maximal ideals are valuation rings.
+Here $\operatorname{Pic}(D)$ is the group of invertible fractional ideals modulo nonzero principal fractional ideals.
+The exponent three in Theorem~\ref{thm:main} is the smallest possible finite Picard exponent for an atomic Pr\"ufer domain failing ACCP, as we show in Section~\ref{sec:sharpness}.
+
+A \emph{bounded factorization domain} (BFD) is an atomic domain in which the lengths of atom factorizations of each fixed nonzero element are bounded.
+Equivalently, for each such element the lengths of all its decompositions into nonunits are bounded.
+Indeed, in an atomic domain each decomposition refines to an atom factorization, and under a bound a decomposition of maximal length already consists of atoms.
+An infinite strictly ascending chain of principal ideals with nonzero first term $(x)$ gives arbitrarily long decompositions of $x$ by taking successive quotients of generators.
+Thus bounded factorization implies ACCP.
+
+\begin{maintheorem}
+    \label{thm:subrings}
+    For the domain $D$ in Theorem~\ref{thm:main} and any unital subring $T \subseteq D$, the following conditions are equivalent.
+    \begin{enumerate}
+        \item $T$ fails ACCP.
+        \item $T$ fails bounded factorization.
+        \item The additive index $[D:T]$ is finite.
+        \item $T = \mathbb{Z} + nD$ for an integer $n \ge 1$.
+    \end{enumerate}
+    In the last case $n = [D:T]$ and $nD$ is the conductor $(T:D)$, the largest ideal of $D$ contained in $T$.
+    Every infinite-index subring of $D$ is hereditarily a BFD.
+\end{maintheorem}
+
+The construction uses the ordinary order of vanishing $v_E$ at $t = 0$ and two evaluations in $\mathbb{Q}_p$ for each rational prime $p$.
+One evaluation at each prime records the divisibility of the successive ratios of the chain.
+The other forces a rational scalar that occurs in a divisor supported on the first evaluations to be a sign.
+The ratios have disjoint supports, while the primary values of any fixed rational function eventually equal its order at $E$.
+This gives an infinite chain below an element of order two.
+At order one, a congruence modulo three between adjacent coordinates forces every element to have only finitely many divisors.
+
+The difficulty is to factor an element in a subring $T$ that need not contain any of the auxiliary rational functions used to build $D$.
+From arbitrarily long decompositions of a single element of $T$ we extract divisors whose primary supports escape every finite set.
+The polynomials of Section~\ref{sec:construction} ensure that these divisors first recover the full rational algebra $\mathbb{Q}D$, and then determine the conductor at each rational prime.
+Theorem~\ref{thm:conductor} shows that for such a subring, every positive integer $n$ with $nt \in T$ satisfies $nD \subseteq T$.
+A sequence of order-one atoms approaches $1$ modulo each such $nD$.
+These atoms can be divided out inside $T$, and induction on $v_E$ gives hereditary atomicity.
+
+\input{profiles}
+\input{construction}
+\input{structure}
+\input{curve}
+\input{conductor}
+\input{orders}
+\input{sharpness}
+
+\begin{samepage}
+    \paragraph{Authorship.}
+    GPT-6.2 Astra discovered the result, building on earlier results discovered by GPT-6 Astra, Opus 5.5, and Fable 5.2.
+    The proofs have received independent AI review.
+    Human verification of the full construction is pending.
+    \par
+\end{samepage}
+
+\begin{thebibliography}{9}
+    \bibitem{Cohen}
+    I.~S. Cohen, Commutative rings with restricted minimum condition,
+    \emph{Duke Math. J.} \textbf{17} (1950), 27--42.
+    \href{https://doi.org/10.1215/S0012-7094-50-01704-2}{doi:10.1215/S0012-7094-50-01704-2}.
+
+    \bibitem{CGH}
+    J.~Coykendall, F.~Gotti and R.~E.~Hasenauer, Hereditary atomicity in integral domains,
+    \emph{J. Pure Appl. Algebra} \textbf{227} (2023), no.~4, 107249.
+    \href{https://doi.org/10.1016/j.jpaa.2022.107249}{doi:10.1016/j.jpaa.2022.107249}.
+
+    \bibitem{Grams}
+    A.~Grams, Atomic rings and the ascending chain condition for principal ideals,
+    \emph{Proc. Cambridge Philos. Soc.} \textbf{75} (1974), 321--329.
+    \href{https://doi.org/10.1017/S0305004100048532}{doi:10.1017/S0305004100048532}.
+\end{thebibliography}
+
+\end{document}

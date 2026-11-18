@@ -1,0 +1,162 @@
+\section{Atomicity and the subrings of finite index}
+\label{sec:orders}
+
+Write $v_E(x)$ for the order of a nonzero $x \in D$ at $t = 0$.
+Since $D^{\times} = \{\pm 1\}$, every unital subring $T$ of $D$ has the same units.
+In particular, taking divisors in $D$ gives bounds on the divisors and on the lengths of decompositions in $T$.
+
+\begin{lemma}
+    \label{lem:low-order}
+    Every nonzero element of $D$ of order zero or one at $E$ has only finitely many divisors up to associates.
+    Each $a_n$ is an atom of $D$.
+\end{lemma}
+
+\begin{proof}
+    Let $g$ be a principal valuation profile supported on finitely many primaries, and set $g_{-1} = 0$.
+    The profiles of the $b_n$ and $q_n$ generate all such profiles as an abelian group.
+    Each generator in \eqref{eq:profiles} satisfies
+    \begin{equation}
+        g_{2k - 1} + g_{2k} + g_{2k + 1} \equiv 0 \pmod{3}
+        \qquad (k \ge 0).
+        \label{eq:triple-congruence}
+    \end{equation}
+    Suppose that the entries of $g$ are zero or one for all $j \ge 2N - 1$, where $N \ge 1$.
+    For $k \ge N$, the three entries in \eqref{eq:triple-congruence} must then be all zero or all one.
+    Consecutive triples share an entry, and every sufficiently late triple is zero.
+    It follows that $g_j = 0$ for all $j \ge 2N - 1$.
+    No restriction on the signs of the entries before this boundary is needed.
+
+    If $v_E(x) = 0$, the entire profile of $x$ is finitely supported.
+    The profile of any divisor in $D$ lies between zero and the profile of $x$ at every coordinate, so there are only finitely many possibilities.
+    Elements with the same profile differ by a unit.
+
+    Suppose that $v_E(x) = 1$.
+    Consider first a divisor $z$ of $x$ with $v_E(z) = 0$.
+    There are only finitely many possible tuples of its values at the guards and at the retained horizontal points other than $E$, since $x$ has finite support there.
+    For each tuple that occurs, fix one divisor $u$ giving that tuple.
+    The profile $g$ of $z/u$ for any other divisor $z$ in the same class is supported on finitely many primaries.
+    Fix $N \ge 1$ large enough that $v_j(x) = 1$ and $v_j(u) = 0$ for $j \ge 2N - 1$.
+    Then $g_j = v_j(z) \in \{0, 1\}$ on this tail, so the congruence argument gives $v_j(z) = 0$ there.
+    The finitely many other primary values range from zero to the corresponding values of $x$.
+    This proves finiteness in each class.
+    The involution $z \mapsto x/z$ exchanges divisors of order zero with divisors of order one, which proves the assertion for $x$.
+
+    Finally, any decomposition of $a_n$ into two factors has a factor of order zero.
+    The profile $g$ of such a divisor is supported on finitely many primaries, vanishes before $2n$, and is bounded by one from $2n + 1$ onward.
+    Applying the triple argument with $N = n + 1$ leaves only the entry $g_{2n}$.
+    Equation~\eqref{eq:triple-congruence} at $k = n$ makes this entry divisible by three, while $0 \le g_{2n} \le 2$.
+    Thus the divisor is a unit, and $a_n$ is an atom.
+\end{proof}
+
+\begin{proposition}
+    \label{prop:all-atomic}
+    Every unital subring $T \subseteq D$ is atomic.
+    If $mD \subseteq T$ for some positive integer $m$, every factorization of a nonzero nonunit $x \in T$ into atoms contains exactly $v_E(x)$ factors of order one at $E$.
+    All its other factors have order zero.
+\end{proposition}
+
+\begin{proof}
+    In a decomposition into nonunits, the successive partial products are pairwise nonassociate divisors of the element being decomposed.
+    Consequently Lemma~\ref{lem:low-order} bounds the lengths of such decompositions in $T$ at orders zero and one.
+    A decomposition of greatest length consists entirely of atoms, since splitting any of its factors increases its length.
+
+    Suppose first that $mD \subseteq T$, and let $v_E(x) = r \ge 2$.
+    We have $v_j(x) = r$ at all sufficiently late primaries.
+    The primary values of $a_i$ vanish before $2i$, equal two at $2i$, and equal one afterwards.
+    Its only other positive value is one at $E$.
+    Hence every sufficiently late $a_i$ divides $x$ in $D$.
+    By Proposition~\ref{prop:construction} we may take $i$ large enough that $a_i \equiv 1 \pmod{mD}$ as well.
+    Then $a_i \in T$, and the identity
+    \[
+        \frac{x}{a_i} - x = \frac{x}{a_i}(1 - a_i) \in mD
+    \]
+    gives $x/a_i \in T$.
+    The factor $a_i$ remains an atom of $T$ because both rings have the same units.
+    The other factor has order $r - 1$, so induction on $r$ gives a factorization of $x$ into atoms.
+    The same splitting shows that no atom of $T$ has order greater than one.
+    Additivity of $v_E$ now gives the asserted count.
+
+    For a general subring, if every nonzero nonunit has bounded lengths of decompositions into nonunits, taking a decomposition of greatest length gives atomicity.
+    Otherwise Theorem~\ref{thm:conductor} gives $mD \subseteq T$ for some positive integer $m$, and the preceding argument applies.
+\end{proof}
+
+In particular $t = a_0$ is an atom.
+The strict chain beginning at $(t^2)$ from Section~\ref{sec:structure} thus begins at the square of an atom.
+This completes the proof of Theorem~\ref{thm:main}.
+
+\begin{proposition}
+    \label{prop:finite-index}
+    For each positive integer $n$, the ring $T_n = \mathbb{Z} + nD$ is the unique unital subring of $D$ of additive index $n$.
+    Its elements are precisely the $f \in D$ satisfying
+    \[
+        f(\alpha_p) \equiv f(\beta_p) \pmod{p^{\nu_p(n)}}
+        \qquad (p \mid n).
+    \]
+    The additive quotient $D/T_n$ is cyclic, generated by the class of $t$, and the conductor $(T_n : D)$ equals $nD$.
+\end{proposition}
+
+\begin{proof}
+    Let $p$ be a rational prime and let $h \ge 1$.
+    Evaluation at $\alpha_p$ and $\beta_p$ induces an isomorphism
+    \begin{equation}
+        D/p^hD \longrightarrow
+        (\mathbb{Z}/p^h\mathbb{Z}) \times (\mathbb{Z}/p^h\mathbb{Z}).
+        \label{eq:two-residues}
+    \end{equation}
+    Indeed, if both evaluations of $x \in D$ are divisible by $p^h$, the quotient $x/p^h$ is integral at the two valuations over $p$.
+    The denominator is a unit at every other defining valuation, so $x/p^h \in D$.
+    For surjectivity, the images of $1$ and $t$ form a basis of the target module over $\mathbb{Z}/p^h\mathbb{Z}$, since $\beta_p - \alpha_p$ is a $p$-adic unit.
+    The Chinese remainder theorem for the ideals $p^hD$ gives the product of these descriptions for each integer modulus $m > 1$.
+    In particular $D/mD$ is finite.
+
+    For $n > 1$ the Chinese remainder isomorphism identifies $D/nD$ with $(\mathbb{Z}/n\mathbb{Z})^2$, using the primary value in each first coordinate and the guard value in each second coordinate.
+    The image of $\mathbb{Z}$ is the diagonal.
+    Thus $T_n$ is the inverse image of the diagonal, which gives the stated congruences.
+    Subtracting the first coordinate from the second yields a surjective additive homomorphism $D \to \mathbb{Z}/n\mathbb{Z}$ with kernel $T_n$.
+    The class of $t$ maps to a unit modulo each $p \mid n$, so it generates this additive quotient and $[D:T_n] = n$.
+
+    If a unital subring $T$ has additive index $n$, its additive quotient is killed by $n$.
+    Therefore $\mathbb{Z} + nD \subseteq T$, and equality follows since both subgroups have index $n$.
+    Finally the diagonal contains no nonzero ideal of $(\mathbb{Z}/n\mathbb{Z})^2$, since multiplying a diagonal element $(u, u)$ by $(1, 0)$ gives $(u, 0)$.
+    Consequently $nD$ is the largest ideal of $D$ contained in $T_n$.
+    For $n = 1$ these assertions give $T_1 = D$, the trivial quotient and conductor $D$.
+\end{proof}
+
+\begin{proposition}
+    \label{prop:chain-height}
+    Let $T \subseteq D$ have finite additive index.
+    For nonzero $x \in T$, the ideal $xT$ starts an infinite strictly ascending chain of principal ideals of $T$ if and only if $v_E(x) \ge 2$.
+    At every such $x$ the lengths of atomic factorizations in $T$ are unbounded.
+    At orders zero and one there are only finitely many factorizations up to order and associates.
+\end{proposition}
+
+\begin{proof}
+    At orders zero and one Lemma~\ref{lem:low-order} gives finitely many divisors.
+    Every ideal in a chain above $xT$ is generated by a divisor of $x$.
+    Also each atomic factor is a divisor, and successive partial products bound all lengths as in Proposition~\ref{prop:all-atomic}.
+    This proves both finiteness assertions at these orders.
+
+    Write $T = T_n$ by Proposition~\ref{prop:finite-index}, and suppose that $v_E(x) = r \ge 2$.
+    The supports of the $q_{2j}$ are the disjoint triples of primary indices $4j, 4j + 1, 4j + 2$, with values $2, 1, 2$.
+    Discard finitely many initial terms so that $v_k(x) = r$ on every remaining support and none of these supports lies over a prime dividing $n$.
+    Every finite product of distinct remaining terms divides $x$ in $D$.
+    For $n > 1$, all these terms are units modulo $nD$, by \eqref{eq:two-residues}.
+    In their sequence of prefix products, some residue occurs infinitely often in the finite group $(D/nD)^{\times}$.
+    Taking the nonempty blocks between successive occurrences gives disjoint blocks whose products $C_1, C_2, \ldots$ are each congruent to one modulo $nD$.
+    For $n = 1$, take the remaining terms themselves as the $C_i$.
+    Each $C_i$ belongs to $T$ and has a positive primary value, so it is a nonunit.
+    Put $x_0 = x$ and $x_i = x/(C_1 \cdots C_i)$ for $i \ge 1$.
+    We have $x_i \in D$, and $x = x_i C_1 \cdots C_i$ gives $x_i \equiv x \pmod{nD}$.
+    Thus $x_i \in T$ and $x_{i - 1}T \subsetneq x_iT$ at every step.
+    Factoring the $i$ nonunits $C_1, \ldots, C_i$ and the remaining factor $x_i$ in the atomic ring $T$ gives atomic factorizations of $x$ of length at least $i$.
+\end{proof}
+
+To finish Theorem~\ref{thm:subrings}, each $T_n$ contains $nt^2$, of order two, so it fails both ACCP and bounded factorization.
+If $T$ has infinite additive index, it cannot contain any $mD$ with $m > 0$ because $D/mD$ is finite.
+The conductor theorem therefore bounds the lengths of all decompositions of each of its nonzero elements into nonunits.
+This gives bounded factorization and ACCP in $T$.
+Every subring of $T$ also has infinite index in $D$, so $T$ is hereditarily a bounded factorization domain.
+In particular this applies to every proper subring of $D$ containing $t$, since $t$ generates each additive quotient $D/T_n$.
+
+For example, the element $t^2$ in $D$ has the factorization $t \cdot t$ and also factorizations of arbitrarily large length.
+Exactly two factors in each have order one at $E$ by Proposition~\ref{prop:all-atomic}, and every additional factor has order zero.

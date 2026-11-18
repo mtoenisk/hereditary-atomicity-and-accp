@@ -1,0 +1,79 @@
+\section{The exponent and the choice of paired primes}
+\label{sec:sharpness}
+
+The exponent in Theorem~\ref{thm:main} has an ideal-theoretic explanation.
+In a Pr\"ufer domain whose Picard group is killed by two, squaring turns every factorization of an invertible ideal into a factorization of a principal ideal.
+For an atom, this severely restricts which invertible ideals can contain it.
+
+\begin{proposition}
+    \label{prop:exponent-two}
+    Let $R$ be a Pr\"ufer domain with $2\operatorname{Pic}(R) = 0$.
+    Each atom generates either a radical ideal or the square of an invertible maximal ideal.
+    If $R$ is atomic, it is a Dedekind domain or a field.
+\end{proposition}
+
+\begin{proof}
+    Suppose $a$ is an atom and $aR$ is not radical.
+    Choose $b \in R \setminus aR$ with $b^2 \in aR$.
+    For instance, take $y \in \sqrt{aR} \setminus aR$ and let $b = y^{k - 1}$, where $k \ge 2$ is the least exponent with $y^k \in aR$.
+    The ideal $I = (a, b)$ is invertible, properly contains $aR$, and satisfies $I^2 \subseteq aR$.
+    Set $K = aI^{-1}$.
+    Since $aR \subseteq I$, the ideal $K$ is integral, and $K = R$ would give $I = aR$.
+    Multiplying $I^2 \subseteq aR$ by $aI^{-2}$ gives $aR \subseteq K^2$.
+    The ideal $K^2$ is principal by the assumption on the Picard group, and it is proper since $K$ is proper.
+    Irreducibility of $a$ forces $aR = K^2$.
+
+    If $K$ were properly contained in a maximal ideal $N$, choose $z \in N \setminus K$ and put $J = K + zR$.
+    The two invertible ideals $J$ and $KJ^{-1}$ are integral and proper, the latter because $K \subsetneq J$.
+    Squaring $K = J(KJ^{-1})$ would express $aR$ as a product of two proper principal ideals.
+    Thus $K$ is maximal, proving the first assertion.
+
+    Now let $R$ be atomic and suppose some nonzero prime ideal $P$ is not finitely generated.
+    It contains an atom, by factoring any nonzero element of $P$.
+    Each atom in $P$ generates a radical ideal by the first assertion.
+    Indeed, if $N^2 \subseteq P$ for an invertible maximal ideal $N$, primality gives $N \subseteq P$, so $P = N$ would be finitely generated.
+    Fix an atom $a \in P$ and choose $b \in P \setminus aR$.
+    The invertible ideal $J = (a, b)$ has principal square contained in $P$.
+    Factor a generator of $J^2$ and choose an atom $y \in P$ occurring in this factorization.
+    Then $J^2 \subseteq yR$ and $yR$ is radical, so $aR \subsetneq J \subseteq yR$.
+    This makes $y$ a proper nonunit divisor of $a$, a contradiction.
+    All prime ideals of $R$ are therefore finitely generated.
+    Cohen's criterion \cite[Theorem~2]{Cohen} implies that $R$ is Noetherian.
+    A Noetherian Pr\"ufer domain which is not a field is Dedekind.
+\end{proof}
+
+We close with a variation that distinguishes the examples by their finite-index subrings.
+It retains exponent three and the same rational function field.
+
+\begin{corollary}
+    \label{cor:variation}
+    There are continuum many pairwise nonisomorphic hereditarily atomic almost Dedekind SP-domains with fraction field $\mathbb{Q}(t)$, Picard group $\bigoplus_{j \ge 0} \mathbb{Z}/3\mathbb{Z}$, and an infinite strict principal-ideal chain starting at the square of an atom.
+\end{corollary}
+
+\begin{proof}
+    Let $S$ be any infinite set of rational primes and assign the primary indices, in order, to its increasing enumeration.
+    Keep a guard over every prime and omit the primary argument at $p \notin S$.
+    The valuation at the first primary again gives $t$ value two.
+    At a prime with just one argument, use $L_p(t) = t - \beta_p$ in Proposition~\ref{prop:construction} and use a constant $A_p$ to interpolate the single value of $t^{d_i} + A_p(t)$.
+    The fixed-constant correction still preserves the prescribed value, and the slope in the derivative estimate remains nonzero since $L_p'(\beta_p) = 1$.
+    For the coefficient estimate, $p^{2s}(t - \beta_p) = p^s(p^s t) - p^{2s}\beta_p$ still belongs to $A_s$, so the same normalization proves \eqref{eq:transfer-module}.
+    The guard residue, Eisenstein, and geometric requirements are the same.
+    These choices prove the construction proposition with one or two arguments as appropriate.
+
+    The rational prime $p$ itself now isolates its sole guard when $p \notin S$.
+    The proof of Lemma~\ref{lem:stalks} applies there with isolating value one.
+    All primary coordinates and their relations persist, so Proposition~\ref{prop:ideals}, the chain, and Lemma~\ref{lem:extraction} give the same conclusions.
+    The generic fibre proof uses the same geometric tests.
+    At a one-argument prime the conductor generator divides $(t - \beta_p)^R$ and is divisible by $t - \beta_p$.
+    The cancellation of a repeated factor in Lemma~\ref{lem:local-conductor} applies verbatim, giving conductor $(t - \beta_p)B'$.
+    The constants in $T'$ already map onto $\mathbb{Z}_p$ under this one evaluation.
+    Descent and the induction using the $a_n$ now prove hereditary atomicity as before.
+
+    Write $D_S$ for this domain.
+    At $p \notin S$, evaluation gives $D_S/pD_S \cong \mathbb{F}_p$ since its kernel is $pD_S$ and the constants map onto the residue field.
+    At $p \in S$ the quotient is $\mathbb{F}_p^2$ by \eqref{eq:two-residues}.
+    A subring of additive index $p$ must contain $pD_S$.
+    The one-factor quotient has no proper unital subring, and the two-factor quotient has its diagonal of index $p$.
+    Hence $S$ is exactly the set of primes at which $D_S$ has an index-$p$ subring.
+    This is an invariant of the abstract ring, and there are continuum many infinite sets of primes.
+\end{proof}

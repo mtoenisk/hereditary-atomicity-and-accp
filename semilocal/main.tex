@@ -1,0 +1,1112 @@
+\documentclass[11pt, letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[margin=1.12in]{geometry}
+\usepackage{lmodern}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    pdftitle={Hereditary atomicity and hereditary ACCP in semilocal domains},
+    pdfauthor={Astra 6.2},
+    pdfsubject={AI-authored research manuscript on factorization in subrings of semilocal domains}
+}
+\newtheorem{maintheorem}{Theorem}
+\renewcommand{\themaintheorem}{\Alph{maintheorem}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\DeclareMathOperator{\Frac}{Frac}
+\raggedbottom
+
+\title{Hereditary atomicity and hereditary ACCP in semilocal domains}
+\author{AI-authored manuscript}
+\date{November 17, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    For a semilocal integral domain $D$, every unital subring of $D$ is atomic if and only if every such subring satisfies the ascending chain condition on principal ideals (ACCP).
+    Under these conditions $D_M$ also satisfies ACCP for every maximal ideal $M$ of $D$.
+    The local construction starts with a local domain that contains a discrete valuation ring and has fraction field algebraic over that of the base.
+    From a strict chain of principal ideals we construct a nonatomic subring containing the base.
+    In the semilocal case we lift generators of a chain at one maximal ideal to elements that are units at all the others, so the obstruction to factorization survives inside $D$.
+    For a nonfield semilocal hereditarily atomic domain we then bound the number of factors of a fixed element that can be nonunits of a subring while being units of $D$.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+Suppose a nonzero nonunit $a$ of a domain $R$ has no factorization into irreducibles.
+Then $a$ splits as a product of two nonunits, at least one of which again has no such factorization.
+Repeating this choice produces a strictly ascending chain of principal ideals beginning with $aR$.
+The converse fails even for local domains.
+Grams constructed a local atomic domain with an infinite strictly ascending chain of principal ideals \cite[Theorem~1.3]{Grams}.
+For such a domain the question becomes whether passage to a subring can destroy all the irreducible factorizations of a single element.
+
+All rings below are commutative with identity, and subrings contain the same identity.
+An \emph{atom} is a nonzero nonunit that cannot be expressed as a product of two nonunits.
+A domain is \emph{atomic} if every nonzero nonunit is a finite product of atoms, and \emph{hereditarily atomic} if every subring is atomic.
+It satisfies the \emph{ascending chain condition on principal ideals} (ACCP) if every ascending sequence of principal ideals stabilizes.
+A domain is \emph{hereditarily ACCP} if every subring satisfies ACCP.
+A domain is \emph{semilocal} if it has finitely many maximal ideals.
+Coykendall, Gotti and Hasenauer formulated the conjecture that hereditary atomicity implies hereditary ACCP and showed that this amounts to asking whether every domain that fails ACCP contains a nonatomic subring \cite[Conjecture~6.1 and Proposition~6.2]{CGH}.
+For fields they proved that in every subring of a hereditarily atomic field, the lengths of the factorizations of a fixed element into atoms are bounded \cite[Corollary~4.5]{CGH}.
+We prove that hereditary atomicity and hereditary ACCP are equivalent for semilocal domains.
+We begin with the local case, where a single chain of principal ideals provides the construction.
+
+\begin{maintheorem}
+    \label{thm:local}
+    Every local domain that fails ACCP contains a nonatomic subring.
+    Equivalently, every hereditarily atomic local domain satisfies ACCP.
+\end{maintheorem}
+
+The construction preserves a specified coefficient ring in the following setting.
+
+\begin{maintheorem}
+    \label{thm:dvr}
+    Let $\mathcal{O}$ be a discrete valuation ring (DVR) contained in a local domain $R$.
+    Suppose $\Frac(R)$ is algebraic over $\Frac(\mathcal{O})$.
+    If $R$ fails ACCP, there is a nonatomic subring $S$ with $\mathcal{O} \subseteq S \subseteq R$.
+\end{maintheorem}
+
+For a semilocal domain the conclusion extends to subrings with arbitrarily many maximal ideals.
+
+\begin{maintheorem}
+    \label{thm:hereditary}
+    A semilocal domain $D$ is hereditarily atomic if and only if it is hereditarily ACCP.
+    Under these equivalent conditions $D_M$ satisfies ACCP for every maximal ideal $M$ of $D$.
+\end{maintheorem}
+
+Section~\ref{sec:arbitrary-local} deduces Theorem~\ref{thm:local} from Theorem~\ref{thm:dvr}.
+The two possibilities in the deduction explain where algebraic relations enter the proof.
+A transcendental element can serve as a polynomial variable, and taking its constant term produces a prime ideal containing no atoms.
+In the algebraic case, start with a strict chain $x_{0}R \subsetneq x_{1}R \subsetneq \cdots$.
+Group consecutive quotients $x_{i - 1}/x_i$ into products $y_j$ and scale the generators at the block endpoints to obtain elements $z_j$ satisfying $z_{j - 1} = y_j z_j$.
+We construct an auxiliary subring $R_{*}$ and an ideal
+\[
+    J_{*} = \bigcup_{j \ge 1} z_j R_{*}.
+\]
+Adjoining $J_{*}$ to the ring generated over $\mathcal{O}$ by a tail of the $y_j$ gives our subring $S$.
+Each nonzero element of $J_{*}$ is divisible in $S$ by a later $y_j$, with the quotient still in $J_{*}$.
+The remaining task is to show that every factorization of $z_1$ has a factor in $J_{*}$.
+
+One cannot deduce this from primality.
+In fact a uniformizer of $\mathcal{O}$ lies outside $J_{*}$ while one of its powers lies inside, as we show in Remark~\ref{rem:nonprime}.
+We therefore study the particular element $z_1$ in a Laurent polynomial ring with independent variables $Y_j$ representing the $y_j$.
+Any proposed factorization uses only finitely many blocks.
+We choose successive blocks of sufficiently high algebraic degree that the relations introduced by $Y_j \mapsto y_j$ contribute only a controlled error to that finite calculation.
+Theorem~\ref{thm:F} excludes a factorization even in the presence of this error.
+
+For a semilocal domain $D$, Theorem~\ref{thm:hereditary} gives a nonatomic subring of $D$ whenever $D_M$ fails ACCP at even one maximal ideal $M$.
+When $D_M$ satisfies the base hypotheses of Proposition~\ref{prop:semilocal-witness}, we construct the subring by lifting the generators of the local chain to units at all the other maximal ideals.
+This choice ensures that the divisions used to split factors still take place inside $D$.
+
+The passage to an arbitrary subring $S \subseteq D$ in Theorem~\ref{thm:hereditary} involves a different obstruction.
+Even after the induced chain in $D$ stabilizes, a quotient that is a unit of $D$ can still be a nonunit of $S$.
+We detect those quotients using valuation rings of $\Frac(D)$ that contain $S$ and omit some element of $D$.
+For nonfield semilocal hereditarily atomic $D$, Section~\ref{sec:places} proves that these valuation rings are discrete and that only finitely many can assign positive value to the first generator of the chain.
+Their normalized values on that generator bound the total number of quotients that become units.
+Section~\ref{sec:hereditary} uses this bound to prove hereditary ACCP and deduces the field case from the nonfield case.
+
+\section{Passing from a DVR base to an arbitrary local domain}
+\label{sec:arbitrary-local}
+
+A suitable DVR inside the given local domain will put us in the setting of Theorem~\ref{thm:dvr} whenever the fraction field extension is algebraic.
+The following observation treats the transcendental case.
+
+\begin{lemma}
+    \label{lem:transcendental-witness}
+    Let $A \subseteq R$ be domains and suppose $q \in A$ is a nonunit of $A$ with $q^{-1} \in R$.
+    For each $x \in R$ transcendental over $\Frac(A)$, the subring
+    \[
+        S = A + xA[q^{-1}][x]
+    \]
+    of $R$ is nonatomic.
+\end{lemma}
+
+\begin{proof}
+    Put $B = A[q^{-1}]$.
+    Since $x$ is transcendental, taking constant terms gives a surjection $S \to A$ whose kernel $I = xB[x]$ is prime.
+    The image of $q$ is a nonunit, so $q$ is a nonunit in $S$ as well.
+    Every nonzero $f \in I$ factors as $q(f/q)$ with $f/q \in I$.
+    Both factors are nonunits of $S$, so $I$ contains no atom.
+    Any factorization of $x$ into atoms would put an atom in $I$ by primality.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:local}]
+    Let $(R, \mathfrak{m})$ be a local domain failing ACCP.
+    In particular $\mathfrak{m} \ne 0$.
+    We exhibit a principal ideal domain $A \subseteq R$ and a prime element $\pi$ of $A$ such that
+    \[
+        A \cap \mathfrak{m} = \pi A,
+        \qquad 1 + \pi \notin A^{\times}.
+    \]
+    If $R$ has characteristic zero and its residue field has characteristic $p > 0$, take $A = \mathbb{Z}$ and $\pi = p$.
+    The map $\mathbb{Z} \to R/\mathfrak{m}$ has kernel $p\mathbb{Z}$, and $1 + p > 1$.
+
+    In equal characteristic, $R$ contains its prime field $k$.
+    Indeed, in residue characteristic zero every nonzero integer lies outside $\mathfrak{m}$ and hence is invertible in $R$.
+    Choose nonzero $\pi \in \mathfrak{m}$.
+    If $\pi$ were algebraic over $k$, then $k[\pi]$ would be a field, making $\pi$ invertible in $R$.
+    Thus $A = k[\pi]$ is a polynomial ring in one variable, and $1 + \pi$ is a nonunit of $A$.
+    Reduction modulo $\mathfrak{m}$ sends a polynomial in $\pi$ to its constant coefficient in the embedded field $k$, so its kernel is $\pi A$.
+
+    In either case $\mathcal{O} = A_{(\pi)}$ lies in $R$, since $R$ inverts every element of $A \setminus \pi A$.
+    It is a DVR with fraction field $F = \Frac(A)$.
+    If $\Frac(R)$ is algebraic over $F$, Theorem~\ref{thm:dvr} supplies a nonatomic subring of $R$ containing $\mathcal{O}$.
+    Otherwise some $x \in R$ is transcendental over $F$, since the elements algebraic over $F$ in $\Frac(R)$ form a field.
+    The element $q = 1 + \pi$ is a unit of $R$ because it is congruent to $1$ modulo $\mathfrak{m}$.
+    Applying Lemma~\ref{lem:transcendental-witness} gives a nonatomic subring of $R$ in this case as well.
+\end{proof}
+
+\section{Normalizing a chain over a discrete valuation ring}
+\label{sec:chain}
+
+Fix a discrete valuation ring $\mathcal{O}$ with uniformizer $\varpi$ and fraction field $k_{0}$.
+To prove Theorem~\ref{thm:dvr} we first normalize a strict chain so that its initial element is a power of $\varpi$.
+The following data specify everything about the ambient ring used in the construction.
+Valuations are additive, with $v(0) = +\infty$.
+
+\begin{definition}
+    \label{hyp:M}
+    A \emph{normalized chain} consists of the following data.
+    \begin{enumerate}
+        \item A field $K$ algebraic over $k_{0}$ and a valuation ring $V$ of $K$ extending $\mathcal{O}$, with real valuation $v$ normalized by $v(\varpi) = 1$.
+        \item An integer $\kappa \ge 1$ and elements $c_{i} \in K^{\times}$ for $i \ge 0$, with $c_{0} = \varpi^{\kappa}$, $v(c_{i}) \ge 1$, and successive quotients $t_{i} = c_{i - 1}/c_{i}$ of positive value for $i \ge 1$.
+        \item A subring $A$ of $K$ containing $\mathcal{O}$, all $c_{i}$ and all $t_{i}$, and integers $n_{i} \ge 1$ with $t_{i}^{n_{i}} \in \varpi^{\kappa} A$ for $i \ge 1$.
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+    \label{lem:normalize}
+    Under the hypotheses of Theorem~\ref{thm:dvr}, every strictly increasing chain of nonzero principal ideals $x_{i}R$ gives a normalized chain with $A = R$ and $c_{i} = sx_{i}$ for a single nonzero $s \in R$.
+\end{lemma}
+
+\begin{proof}
+    First, every nonzero ideal $I$ of $R$ contains a power of $\varpi$.
+    Indeed, choose nonzero $a \in I$ and clear denominators in its minimal polynomial over $k_{0}$.
+    The nonzero constant term belongs to $aR \cap \mathcal{O}$ and is a unit of $\mathcal{O}$ times a power of $\varpi$.
+    In particular every nonzero prime $P$ of $R$ contains $\varpi$.
+    For any $b \in R$ take a polynomial relation over $\mathcal{O}$ for $b$ and divide its coefficients by their largest common power of $\varpi$.
+    Its image modulo $P$ is a nonzero polynomial over $\mathcal{O}/\varpi\mathcal{O}$ annihilating the image of $b$.
+    Thus $R/P$ is a domain algebraic over a field, hence a field.
+    It follows that the maximal ideal $\mathfrak{m}$ of $R$ is its only nonzero prime ideal.
+
+    The strict inclusions give $t_{i} = x_{i - 1}/x_{i} \in \mathfrak{m}$ and $x_{0} \in \mathfrak{m}$.
+    Apply the ideal assertion to $x_{0}R$ to write $wx_{0} = \varpi^{r}$ with $w \in R$ and $r \ge 1$.
+    Set $s = \varpi w$, $c_{i} = sx_{i}$, and $\kappa = r + 1$.
+    Since $\sqrt{\varpi^{\kappa}R} = \mathfrak{m}$, each $t_{i}$ has a positive power in $\varpi^{\kappa}R$.
+
+    Take a valuation ring $V$ of $K = \Frac(R)$ dominating $R$ \cite{Stacks}.
+    Its maximal ideal contracts to $\mathfrak{m}$, so $\varpi$ has positive value and $V \cap k_{0} = \mathcal{O}$.
+    The value group embeds in $\mathbb{Q}$ after assigning $\varpi$ value one.
+    Indeed, in a polynomial relation for any $b \in K^{\times}$ over $k_{0}$, two nonzero terms must have equal minimum value.
+    Subtracting their values shows that a positive multiple of the value of $b$ is an integral multiple of the value of $\varpi$.
+    In this normalization $v(t_{i}) > 0$ and $v(c_{i}) = 1 + v(wx_{i}) \ge 1$, as required.
+\end{proof}
+
+Fix a normalized chain for the rest of the proof.
+We shall construct the witness inside $A \cap V$.
+For a vector $\beta$ write $\beta_{\le i}$ and $\beta_{>i}$ for the coordinates with indices at most $i$ and greater than $i$, respectively.
+Inequalities between vectors are coordinatewise.
+
+\section{Coordinates for products of chain ratios}
+\label{sec:windows}
+
+Write $\widehat{K}$ for the completion of $K$ at $v$ and $\widehat{k}_{0}$ for the closure of $k_{0}$ in $\widehat{K}$.
+The latter is complete and discretely valued.
+Indeed, an approximation to a nonzero element by an element of $k_{0}$ has the same value once the error has larger value.
+We denote its valuation ring by $\widehat{\mathcal{O}}$.
+Every finite extension of $\widehat{k}_{0}$ in $\widehat{K}$ is complete, and its valuation extends uniquely to its algebraic closure \cite[Proposition~1.2.2 and the discussion in \S4.1]{MR2183496}.
+
+\begin{lemma}
+    \label{lem:L}
+    Let $F$ be a finite extension of $\widehat{k}_{0}$ in $\widehat{K}$, and let $y \in \widehat{K}^{\times}$ be algebraic of degree $D$ over $F$.
+    Fix any interval $I$ of $D$ consecutive integers.
+    In the basis $(y^{j})_{j \in I}$ of $F(y)$ over $F$, each term of the expansion of $y^{n}$ has value at least $n v(y)$, for every integer $n$.
+\end{lemma}
+
+\begin{proof}
+    Put $u = v(y)$ and write the minimal polynomial as $\sum_{j = 0}^{D} a_{j} X^{j}$, with $a_{D} = 1$.
+    Uniqueness of the extended valuation gives every conjugate of $y$ value $u$.
+    Taking elementary symmetric functions of the roots with their multiplicities gives $v(a_{j}) \ge (D - j)u$ and $v(a_{0}) = Du$.
+    Start with the usual power basis.
+    To multiply a basis expansion by $y$, one need only reduce $y^{D}$ using the minimal polynomial, and every replacement term has value at least $Du$.
+    To multiply by $y^{-1}$, use $y^{-1} = -\sum_{j = 1}^{D}(a_{j}/a_{0})y^{j - 1}$, whose terms have value at least $-u$.
+    Thus successive multiplications starting at $1$ give the bound for every $n$, since collecting equal powers can only raise their value.
+    If $h = \min I$, multiplying the expansion of $y^{n - h}$ by $y^{h}$ proves the assertion in the translated basis.
+\end{proof}
+
+Consider a tower $F_{0} = \widehat{k}_{0}$, $F_{i} = F_{i - 1}(y_{i})$ generated by nonzero elements of $K$.
+Each step is finite since $K/k_{0}$ is algebraic.
+Put $D_{i} = [F_{i} : F_{i - 1}]$ and $u_{i} = v(y_{i})$.
+The transfer to Laurent polynomials will keep a monomial's final coordinates fixed while expanding its initial coordinates in a basis.
+For this reason the interval for an exponent depends on the poles in the coordinates to its right.
+
+\begin{definition}
+    \label{def:WN}
+    Put $L_{i} = \lfloor D_{i}/2 \rfloor$ and $I_{i} = [-L_{i}, D_{i} - L_{i} - 1] \cap \mathbb{Z}$.
+    For $\beta \in \mathbb{Z}^{N}$ let $\delta_{i}(\beta) = \max\bigl(\{0\} \cup \{-\beta_{j} : i < j \le N\}\bigr)$.
+    A vector $\beta$ fails the \emph{window condition} at $i$ if $\beta_{i} + \delta_{i}(\beta) \notin I_{i}$.
+    Write $B_{N}$ for the set of vectors that meet all the interval conditions and $B_{0}$ for the singleton consisting of the empty vector.
+\end{definition}
+
+\begin{lemma}
+    \label{lem:W}
+    Fix the last $N - l$ coordinates of $\beta$, and suppose they meet their interval conditions.
+    Put $\delta = \delta_{l}(\beta)$.
+    Then $\beta \in B_{N}$ precisely when $\beta_{\le l} + \delta\mathbf{1} \in B_{l}$, where $\mathbf{1}$ denotes the vector of ones.
+\end{lemma}
+
+\begin{proof}
+    For $\gamma = \beta_{\le l} + \delta\mathbf{1}$ and $i \le l$, the largest pole order to the right of $i$ is $\delta_{i}(\beta) = \delta + \delta_{i}(\gamma)$.
+    This follows by taking the maximum first over $j > l$ and then over $i < j \le l$.
+    Hence $\gamma_{i} + \delta_{i}(\gamma) = \beta_{i} + \delta_{i}(\beta)$ at every remaining coordinate.
+\end{proof}
+
+\begin{lemma}
+    \label{lem:WB}
+    The monomials $y^{\beta} = \prod_{i = 1}^{N} y_{i}^{\beta_{i}}$ for $\beta \in B_{N}$ form a basis of $F_{N}$ over $\widehat{k}_{0}$.
+\end{lemma}
+
+\begin{proof}
+    At $N = 0$ the basis is $\{1\}$.
+    For $N \ge 1$, decompose $F_{N}$ into the summands $F_{N - 1} y_{N}^{j}$ for $j \in I_{N}$ by Lemma~\ref{lem:L}.
+    In the summand for $j$, put $d = \max(0, -j)$ and multiply the preceding basis by $(y_{1}\cdots y_{N - 1})^{-d} y_{N}^{j}$.
+    This gives a basis of the summand, and Lemma~\ref{lem:W} identifies the resulting exponent vectors as exactly the elements of $B_{N}$ ending in $j$.
+\end{proof}
+
+\begin{lemma}
+    \label{lem:WL}
+    There are nondecreasing constants $\Omega_{1} = 0, \Omega_{2}, \dots$ such that every term of the $B_{l}$-expansion of $x \in F_{l}$ has value at least $v(x) - \Omega_{l + 1}$.
+    The constant $\Omega_{l + 1}$ depends only on the generators chosen through stage $l$.
+    For a single monomial $x = c y^{\alpha}$ with $c \in \widehat{k}_{0}^{\times}$, $\alpha \in \mathbb{Z}^{l}$ and $l \ge 1$, the lower bound improves to $v(x) - \Omega_{l}$.
+\end{lemma}
+
+\begin{proof}
+    For $|a| = \exp(-v(a))$, the maximum of the absolute values of the basis terms is a norm on $F_{l}$.
+    Equivalence of norms over the complete field $\widehat{k}_{0}$ bounds this maximum by a constant times $|x|$ \cite[Proposition~1.2.2]{MR2183496}.
+    Take $\Omega_{l + 1}$ to be the least nonnegative logarithmic bound.
+    Equivalently, take the supremum of $v(x) - v(t)$ over all $x \ne 0$ and all nonzero terms $t$ in the basis expansion of $x$.
+    It is zero for $l = 0$, and it can only increase with $l$ because adjoining the exponent $0$ embeds each basis into the next.
+
+    Now write a monomial $x$ as $a y_{l}^{n}$ with $a \in F_{l - 1}^{\times}$.
+    Expansion in the last variable gives $x = \sum_{j \in I_{l}} g_{j} y_{l}^{j}$ with $v(g_{j} y_{l}^{j}) \ge v(x)$ by Lemma~\ref{lem:L}.
+    For each $j$, set $b = (y_{1} \cdots y_{l - 1})^{\max(0, -j)}$.
+    Expand $b g_{j}$ in the preceding basis and multiply the expansion by $y_{l}^{j}/b$.
+    Its terms have value at least $v(g_{j} y_{l}^{j}) - \Omega_{l}$.
+    By the summand decomposition in Lemma~\ref{lem:WB}, these are precisely the required basis terms.
+\end{proof}
+
+\section{Selecting the blocks}
+\label{sec:blocks}
+
+Return to the normalized chain of Definition~\ref{hyp:M}.
+At the $j$th stage, re-expanding a single monomial can lower the value of a term by as much as $\Omega_{j}$.
+We can offset this loss by selecting a sufficiently long product of successive ratios, because its field degree can be made arbitrarily large.
+
+\begin{lemma}
+    \label{lem:degreegrowth}
+    Fix $a \ge 0$ and a finite extension $F$ of $\widehat{k}_{0}$ in $\widehat{K}$.
+    The degrees $[F(c_{a}/c_{b}) : F]$ for $b > a$ are unbounded.
+\end{lemma}
+
+\begin{proof}
+    As $b$ increases, the values $v(c_{a}/c_{b})$ increase strictly and stay below $v(c_{a})$, by the chain hypotheses.
+    If the indicated degrees were bounded, the degrees over $\widehat{k}_{0}$ of the elements $c_{a}/c_{b}$ would all be at most some integer $M$.
+    An element of degree $d$ over $\widehat{k}_{0}$ has value in $d^{-1}\mathbb{Z}$, since the constant coefficient of its monic minimal polynomial has value $d$ times the value of the element, as in Lemma~\ref{lem:L}.
+    Consequently the strictly increasing sequence would be bounded in $(M!)^{-1}\mathbb{Z}$, which is impossible.
+\end{proof}
+
+\begin{proposition}
+    \label{prop:B}
+    There are integers $0 = a_{0} < a_{1} < \cdots$ with the following properties.
+    Set $z_{0} = \varpi^{\kappa}$, $s_{0} = \kappa$, $T_{0} = 0$, and for $j \ge 1$ put
+    \[
+        z_{j} = c_{a_{j}}, \qquad y_{j} = z_{j - 1}/z_{j}, \qquad
+        s_{j} = v(z_{j}), \qquad u_{j} = v(y_{j}).
+    \]
+    Use these $y_{j}$ to form the tower above, and set $m_{j} = n_{a_{j - 1} + 1}$, using the exponents from the chain hypotheses.
+    Then $y_{j}, z_{j} \in A$, and the following hold for every $j \ge 1$.
+    \begin{align}
+        s_{j} &= \kappa - \sum_{i = 1}^{j} u_{i} \ge 1,
+        \qquad 0 < u_{j} < \kappa, \tag{H1}\label{H1}\\
+        T_{j} &= T_{j - 1} + 2\kappa m_{j} \ge T_{j - 1} + 2\kappa, \tag{H2}\label{H2}\\
+        D_{j}u_{j} &\ge 3\kappa(2T_{j} + \Omega_{j}). \tag{H3}\label{H3}
+    \end{align}
+    Write $\tau_{j} = T_{j} + s_{j}$ for $j \ge 0$.
+\end{proposition}
+
+\begin{proof}
+    Once $a = a_{j - 1}$ is chosen, the numbers $m_{j}$, $T_{j}$ of \eqref{H2}, and $\Omega_{j}$ of Lemma~\ref{lem:WL} are fixed.
+    By Lemma~\ref{lem:degreegrowth} choose an integer $a_{j} > a$ such that $[F_{j - 1}(c_{a}/c_{a_{j}}) : F_{j - 1}]\,v(t_{a + 1}) \ge 3\kappa(2T_{j} + \Omega_{j})$.
+    The new ratio $y_{j} = \prod_{a < i \le a_{j}} t_{i}$ lies in $A$ and has value at least $v(t_{a + 1}) > 0$, proving \eqref{H3}.
+    Since $z_{j}$ is a term of the original chain, it belongs to $A$ and has value at least one.
+    Telescoping gives \eqref{H1}, and $m_{j} \ge 1$ gives the inequality in \eqref{H2}.
+\end{proof}
+
+\begin{lemma}
+    \label{lem:D}
+    For nonnegative integers $e, q_{1}, \dots, q_{l}$ with $l \ge 1$, the element $\varpi^{e - \kappa}\prod_{i = 1}^{l} y_{i}^{q_{i}}$ belongs to $A$ whenever its value is at least $T_{l}$.
+\end{lemma}
+
+\begin{proof}
+    The first ratio of block $i$ has $m_{i}$th power in $\varpi^{\kappa}A$.
+    All remaining ratios belong to $A$, so $y_{i}^{m_{i}}/\varpi^{\kappa} \in A$.
+    If $e \ge \kappa$ the given element is already a product in $A$.
+    For $e < \kappa$, if all $q_{i} < m_{i}$, the element has value less than $\kappa \sum_{i = 1}^{l} m_{i} = T_{l}/2$ by \eqref{H1} and \eqref{H2}.
+    The assumed lower bound therefore gives some $q_{i} \ge m_{i}$, and the factor $y_{i}^{m_{i}}$ clears the denominator.
+\end{proof}
+
+\section{A finite Laurent polynomial model}
+\label{sec:model}
+
+Replace a finite string of blocks by independent variables of the same values.
+The relations $Z_{k - 1} = Y_{k}Z_{k}$ will then hold identically.
+The following rings record which Laurent monomials may occur on each side of a factorization.
+We say membership in a set of Laurent polynomials is \emph{termwise} when a polynomial belongs to the set precisely when all its nonzero terms belong.
+
+\begin{definition}
+    \label{def:GS}
+    Work over the completed discretely valued field $\widehat{k}_{0}$ with valuation ring $\widehat{\mathcal{O}}$ and $v(\varpi) = 1$.
+    Fix positive integers $N, \kappa$ and positive real weights $u_{1}, \ldots, u_{N}$ with $s_{k} = \kappa - \sum_{i = 1}^{k} u_{i} > 0$ for $0 \le k \le N$.
+    Take $T_{0} = 0$, $T_{k} \ge 2\kappa$ for $k \ge 1$, and $\tau_{k} = T_{k} + s_{k}$.
+    For a set $X \subseteq \{1, \ldots, N\}$, write $u_{X} = \sum_{i \in X} u_{i}$, $Y_{X} = \prod_{i \in X} Y_{i}$ and $X_{\le k} = X \cap \{1, \ldots, k\}$.
+    Fix $\Lambda \subseteq \{1, \ldots, N\}$ with $2u_{\Lambda \setminus \{1\}} \le s_{1}$.
+    In the Laurent polynomial ring $\mathcal{L} = \widehat{k}_{0}[Y_{1}^{\pm 1}, \ldots, Y_{N}^{\pm 1}]$, put
+    \[
+        Z_{k} = \varpi^{\kappa}\prod_{i = 1}^{k}Y_{i}^{-1}
+        \qquad (0 \le k \le N).
+    \]
+    For a monomial $t = cY^{\beta}$ with $c \ne 0$, set $e(t) = v(c)$ and $v(t) = e(t) + \beta \cdot u$.
+    For a nonzero Laurent polynomial $f$, define $v(f)$ to be the least value of its terms after like powers are collected, and put $v(0) = +\infty$.
+    When exactly one term attains the minimum, write $\operatorname{in}(f)$ for that term.
+\end{definition}
+
+\begin{lemma}
+    \label{lem:V}
+    The function $v$ is a valuation on $\mathcal{L}$.
+    If a product has a unique term of least value, so does each factor and each subproduct.
+    The exponents and the coefficient values of the initial terms add under these products.
+\end{lemma}
+
+\begin{proof}
+    Among terms of least value, take the first exponent in lexicographic order.
+    If $f$ and $g$ have first exponents $a$ and $b$, only this pair of least-value terms can contribute at $a + b$.
+    All other contributions at that exponent have higher coefficient valuation, so the product has value $v(f) + v(g)$ and first exponent $a + b$.
+    The valuation inequality for sums follows coefficient by coefficient.
+    Reversing the order gives additivity of the last exponent as well.
+    The difference between the last and first exponents is lexicographically nonnegative for every factor.
+    If the differences sum to zero, they all vanish.
+    This proves uniqueness in each factor and subproduct, and subtracting the weight of the exponent from the total value gives additivity of the coefficient values.
+\end{proof}
+
+\begin{definition}
+    \label{def:GM}
+    For $t = cY^{\beta}$ let $\delta_{k}(t) = \max(\{0\} \cup \{-\beta_{i} : i > k\})$.
+    Put
+    \[
+        P_{k}(t) = e(t) + \sum_{i = 1}^{k} \beta_{i}u_{i},
+        \qquad
+        \varphi_{k}(t) = P_{k}(t) - \delta_{k}(t)s_{k}.
+    \]
+    Write $\mathcal{H}_{k}$ for the Laurent monomials in the first $k$ variables of value at least $T_{k}$, for $1 \le k \le N$.
+    Define
+    \[
+        \begin{aligned}
+            R_{0} &= \widehat{\mathcal{O}}[Y_{1}, \ldots, Y_{N}, Z_{N},
+                        \mathcal{H}_{1} \cup \cdots \cup \mathcal{H}_{N}], \\
+            J_{0} &= Z_{N}R_{0}, \qquad
+            S_{0} = \widehat{\mathcal{O}}[Y_{i} : i \in \Lambda] + J_{0}.
+        \end{aligned}
+    \]
+    For a polynomial monomial with $e(t) \ge 0$ and $\beta \ge 0$, say that it is \emph{dead at level $k$} if $P_{k}(t) \ge \tau_{k}$.
+    At level zero this means $e(t) \ge \kappa$.
+\end{definition}
+
+\begin{lemma}
+    \label{lem:MC}
+    Suppose a class of monomials is closed under replacing a coefficient by one of equal or greater value.
+    Its additive span consists precisely of the polynomials whose terms all belong to the class.
+    Taking the union of two such classes adds their spans, and translation by a fixed monomial multiplies the span by that monomial.
+\end{lemma}
+
+\begin{proof}
+    At each exponent the coefficient in a sum, if nonzero, has valuation at least the smallest among the contributing coefficients.
+    Conversely, a polynomial is the sum of its terms.
+    Translation by a monomial preserves the distinctness of the exponents.
+\end{proof}
+
+\begin{lemma}
+    \label{lem:G1}
+    For Laurent monomials $t = cY^{\beta}$ and $t'$ the following hold.
+    \begin{enumerate}
+        \item[\textup{(a)}] The values $\varphi_{k}(t)$ increase weakly to $\varphi_{N}(t) = v(t)$, and $\varphi_{k}(tt') \ge \varphi_{k}(t) + \varphi_{k}(t')$.
+        \item[\textup{(b)}] Membership in $R_{0}$ is termwise.
+        A monomial $t$ belongs to $R_{0}$ precisely when $\varphi_{k}(t) \ge T_{k}$ at some level $0 \le k \le N$.
+        At any such level, with $d = \delta_{k}(t)$, it factors as
+        \[
+            t = h Z_{N}^{d}\prod_{i > k}Y_{i}^{\beta_{i} + d},
+        \]
+        where the displayed exponents $\beta_{i} + d$ are nonnegative and $h \in \mathcal{H}_{k}$ for $k > 0$, or $h \in \widehat{\mathcal{O}}$ for $k = 0$.
+    \end{enumerate}
+    In particular $v \ge 0$ on $R_{0}$, and $Z_{k} \in R_{0}$ for all $k$.
+\end{lemma}
+
+\begin{proof}
+    Write $d_{k} = \delta_{k}(t)$.
+    Since $d_{k - 1} = \max\{d_{k}, -\beta_{k}\}$, the increment of $\varphi$ is
+    \[
+        \varphi_{k}(t) - \varphi_{k - 1}(t)
+        = (\beta_{k} + d_{k - 1})u_{k} + (d_{k - 1} - d_{k})s_{k} \ge 0.
+    \]
+    Now $d_{N} = 0$, and the pole orders are subadditive under products, whereas the partial values are additive.
+    This gives~(a).
+
+    For (b), the monomials passing the stated test are closed under raising the coefficient value.
+    If two monomials pass at different levels, use the larger level in~(a).
+    There one factor already has the required value and the other contributes a nonnegative value.
+    Their additive span is therefore a ring by Lemma~\ref{lem:MC}.
+    It contains the generators of $R_{0}$, since constants in $\widehat{\mathcal{O}}$, the $Y_{i}$ and $Z_{N}$ pass at zero, and the monomials of $\mathcal{H}_{k}$ pass at $k$.
+    Conversely, if $t$ passes at $k$, set $h = c\varpi^{-\kappa d}\prod_{i \le k}Y_{i}^{\beta_{i} + d}$.
+    Then $h$ has value $\varphi_{k}(t)$ and gives the asserted factorization in $R_{0}$.
+    This proves the termwise criterion.
+    Every passing monomial has nonnegative value by (a), and $Z_{k} = Z_{N}\prod_{i > k}Y_{i}$.
+\end{proof}
+
+\begin{lemma}
+    \label{lem:G2}
+    The following tests hold in the finite model.
+    \begin{enumerate}
+        \item[\textup{(a)}] Membership in $J_{0}$ is termwise, and $t \in J_{0}$ precisely when $t/Z_{N} \in R_{0}$.
+        Every nonzero element of $J_{0}$ has value at least $s_{N}$, and $Z_{k}R_{0} \subseteq J_{0}$.
+        \item[\textup{(b)}] For a monomial $t$ with nonnegative exponents, $t \in J_{0}$ precisely when $P_{k}(t) \ge \tau_{k}$ for some $0 \le k \le N$.
+        \item[\textup{(c)}] Membership in $S_{0}$ is termwise.
+        Each term of an element of $S_{0}$ lies in $J_{0}$ or in $\widehat{\mathcal{O}}[Y_{i} : i \in \Lambda]$.
+        A term outside $J_{0}$ is dead at no level.
+        \item[\textup{(d)}] If a monomial $t \in J_{0}$ has $v(t) < 2\kappa$, then $e(t) \ge \kappa$.
+        In case of equality $t = cZ_{N}Y^{\beta}$ with $v(c) = 0$ and $\beta \ge 0$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Multiplication by $Z_{N}$ shifts all exponents and adds $s_{N}$ to every value.
+    Part~(a) follows from Lemma~\ref{lem:G1} and the identity $Z_{k}/Z_{N} = \prod_{i > k}Y_{i}$.
+    When $t$ has nonnegative exponents, $t/Z_{N}$ has zero pole order at every level and $\varphi_{k}(t/Z_{N}) = P_{k}(t) - s_{k}$.
+    The criterion for $R_{0}$ gives~(b), even for a coefficient of negative value.
+    The sum defining $S_{0}$ is a ring because $J_{0}$ is an ideal of $R_{0}$.
+    Its two summands satisfy Lemma~\ref{lem:MC}, giving~(c) by~(b).
+    Finally, in~(d), the quotient $w = t/Z_{N}$ lies in $R_{0}$ with $v(w) < 2\kappa$.
+    Since $\varphi_{k}(w) \le v(w) < 2\kappa \le T_{k}$ for $k \ge 1$, $w$ can pass only at zero.
+    Thus $e(w) \ge \kappa\delta_{0}(w) \ge 0$ and $e(t) = \kappa + e(w)$.
+    If $e(w) = 0$, the pole order vanishes and $w$ is a polynomial monomial with unit coefficient.
+\end{proof}
+
+\begin{corollary}
+    \label{rem:membership}
+    At each fixed exponent, membership in any of $R_{0}, J_{0}, S_{0}$ depends only on the coefficient value.
+\end{corollary}
+
+\begin{proof}
+    Multiplication by a unit of $\widehat{\mathcal{O}}$ preserves each of the three sets in both directions.
+\end{proof}
+
+The obstruction argument will compare two translations of a monomial, one for each part of a partition.
+To control products after these translations we need a slightly larger ring.
+
+\begin{lemma}
+    \label{lem:G3}
+    Let $\mathcal{A} \sqcup \mathcal{B} = \{2, \ldots, N\}$ and let $\mathcal{I}$ be the ideal of $R_{0}$ generated by the sets $\mathcal{H}_{k}$.
+    Set
+    \[
+        R_{0}^{\sharp} = R_{0} + \varpi^{-\kappa}\mathcal{I},
+        \qquad U_{0} = \{f \in R_{0}^{\sharp} : Y_{\mathcal{B}}f \in R_{0}\}.
+    \]
+    \begin{enumerate}
+        \item[\textup{(a)}] Both are rings containing $R_{0}$, with $Y_{\mathcal{B}}U_{0} \subseteq R_{0}$ and $\varpi^{-2\kappa}\mathcal{I}^{2} \subseteq \mathcal{I}$.
+        \item[\textup{(b)}] A monomial $t$ belongs to $U_{0}$ whenever both $Y_{\mathcal{A}}t$ and $Y_{\mathcal{B}}t$ belong to $R_{0}$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    For $h \in \mathcal{H}_{k}$ and $h' \in \mathcal{H}_{j}$ with $j \le k$, the monomial $\varpi^{-2\kappa}hh'$ involves only the first $k$ variables and has value at least $T_{k} + T_{j} - 2\kappa \ge T_{k}$.
+    Thus $M = \varpi^{-\kappa}\mathcal{I}$ satisfies $M^{2} \subseteq \mathcal{I} \subseteq R_{0}$, and $R_{0}^{\sharp} = R_{0} + M$ is a ring.
+    Since $Y_{\mathcal{B}} \in R_{0}$, one has $U_{0} = R_{0} + (M \cap Y_{\mathcal{B}}^{-1}R_{0})$.
+    Here the second summand is an $R_{0}$-module whose square lies in $R_{0}$.
+    This proves~(a).
+
+    For (b), multiplying by $Y_{X}$, for $X = \mathcal{A}$ or $\mathcal{B}$, lowers any pole order by at most one.
+    At $k \ge 1$ this yields
+    \[
+        \varphi_{k}(Y_{X}t) - \varphi_{k}(t)
+        \le u_{X_{\le k}} + s_{k} \le s_{1} < \kappa,
+    \]
+    since $1 \notin X$.
+    If either translate passes at a positive level $k$, then $\varpi^{\kappa}t$ passes there as well.
+    Its factorization in Lemma~\ref{lem:G1}(b) contains a factor in $\mathcal{H}_{k}$, so $t \in M$.
+    Otherwise both translates pass at level zero.
+    A coordinate realizing the largest pole of $t$ is unchanged by at least one translate, since the two index sets are disjoint.
+    Hence the larger of the two translated pole orders at zero equals $\delta_{0}(t)$, including when this is zero.
+    As neither translation changes the coefficient, $e(t) \ge \kappa\delta_{0}(t)$, so $t \in R_{0}$.
+    In both cases $t \in R_{0}^{\sharp}$, and $Y_{\mathcal{B}}t \in R_{0}$ completes the proof.
+\end{proof}
+
+\subsection{A product with prescribed initial term}
+
+\begin{theorem}
+    \label{thm:F}
+    In the finite model, every factorization of $Z_{1}(1 + h)$ in $S_{0}$, where $h \in J_{0}$, has a factor in $J_{0}$.
+\end{theorem}
+
+\begin{proof}
+    Suppose that $f_{1} \cdots f_{r} = Z_{1}(1 + h)$ with $r \ge 1$ and every $f_{i} \in S_{0} \setminus J_{0}$.
+    Since $v(h) > 0$, the product has a unique least-value term whose exponent is that of $Y_{1}^{-1}$ and whose coefficient has value $\kappa$.
+    By Lemma~\ref{lem:V} each factor has a unique least-value term $m_{i}$, and both the exponents and the coefficient values of these terms add.
+    Their Gauss values are nonnegative and sum to $s_{1}$, so each is less than $2\kappa$.
+    Some $m_{i}$ has a negative first exponent and hence belongs to $J_{0}$.
+    By Lemma~\ref{lem:G2} each $m_{i}$ in $J_{0}$ has coefficient value at least $\kappa$, and each $m_{i}$ outside $J_{0}$ has nonnegative coefficient value.
+    Thus precisely one $m_{i}$ belongs to $J_{0}$.
+    Renumber so this is $m_{1}$.
+    The same lemma writes $m_{1}$ as a unit coefficient times $Z_{N}Y^{\beta}$ with $\beta \ge 0$.
+    Each other $m_{i}$ is a unit coefficient times an ordinary monomial supported on $\Lambda$.
+
+    After removing $Z_{N}$, the exponents to be distributed among the $m_{i}$ are those of $Y_{2} \cdots Y_{N}$.
+    Consequently there is a partition $\mathcal{A} \sqcup \mathcal{B} = \{2, \dots, N\}$ such that $Y^{\beta} = Y_{\mathcal{B}}$ and $f_{2} \cdots f_{r}$ has initial term $cY_{\mathcal{A}}$, with $v(c) = 0$ and $\mathcal{A} \subseteq \Lambda$.
+    The empty product is $1$.
+    In particular $2u_{\mathcal{A}} \le s_{1}$.
+    Define $d$ by $f_{2} \cdots f_{r} = cY_{\mathcal{A}}(1 - d)$.
+    Then $v(d) > 0$ and $Y_{\mathcal{A}}d \in S_{0}$.
+    In $cf_{1}$ collect the terms outside $J_{0}$ into $a$, and write
+    \[
+        cf_{1} = a + Z_{N}\rho,\qquad \rho \in R_{0},\qquad \psi = a/Z_{N}.
+    \]
+    The termwise membership tests give $a \ne 0$ and put every term of $\psi$ outside $R_{0}$.
+    Since $Z_{1} = Z_{N}Y_{\mathcal{A}}Y_{\mathcal{B}}$, the proposed factorization gives
+    \[
+        \psi + \rho = Y_{\mathcal{B}}\frac{1 + h}{1 - d}.
+    \]
+
+    We claim that a term of least value in $\psi$ must be matched, at the same exponent and value, by a term of $Y_{\mathcal{B}}d$.
+    To see this, let $g$ be the sum of the terms of $d$ in the auxiliary ring $U_{0}$ of Lemma~\ref{lem:G3}, and put $b = d - g$.
+    Every term $t$ of $b$ satisfies $Y_{\mathcal{A}}t \in S_{0}$ by termwise membership.
+    Since $t \notin U_{0}$, Lemma~\ref{lem:G3} puts $Y_{\mathcal{B}}t$ outside $R_{0}$.
+    Set $\nu = \min\{v(\psi), u_{\mathcal{B}} + v(b)\}$, which is finite.
+    In the fraction field of the Laurent polynomial ring we have the exact identity
+    \[
+        \frac{1}{1 - d} - \frac{1}{1 - g} - b
+        = \frac{b(d + g - dg)}{(1 - d)(1 - g)}.
+    \]
+    Both denominators have value zero and $d + g - dg$ has positive value.
+    The geometric sum $G_{n} = \sum_{j = 0}^{n - 1}g^{j}$ belongs to $U_{0}$, and $(1 - g)^{-1} - G_{n} = g^{n}/(1 - g)$ has arbitrarily large value as $n$ increases.
+    Hence for sufficiently large $n$,
+    \[
+        v\bigl(\psi - Y_{\mathcal{B}}b - H_{n}\bigr) > \nu,
+        \qquad H_{n} = Y_{\mathcal{B}}(1 + h)G_{n} - \rho \in R_{0}.
+    \]
+    Indeed the displayed difference is the sum of $Y_{\mathcal{B}}hb$, the geometric truncation error times $Y_{\mathcal{B}}(1 + h)$, and the right-hand side of the preceding identity times $Y_{\mathcal{B}}(1 + h)$.
+    The estimate includes $b = 0$ or $g = 0$ under the convention $v(0) = +\infty$.
+
+    All terms of $\psi$ and $Y_{\mathcal{B}}b$ lie outside $R_{0}$.
+    If a term of value $\nu$ in either polynomial had no match of that value at its exponent in the other, their difference would retain the same exponent and coefficient value.
+    Since the difference agrees with $H_{n}$ up to terms of value greater than $\nu$, termwise membership would put that term in $R_{0}$.
+    Thus the least terms match, both polynomials have value $\nu$, and $b \ne 0$.
+
+    Choose a least-value term $\ell$ of $a$.
+    Its translate $\ell/Z_{N}$ matches a term $Y_{\mathcal{B}}t$ with $t$ a term of $b$.
+    Since $Y_{\mathcal{A}}t \in S_{0}$ and membership depends only on exponent and coefficient value, it follows that
+    \[
+        \sigma = \frac{\ell Y_{\mathcal{A}}}{Z_{N}Y_{\mathcal{B}}}
+        = \frac{\ell Y_{\mathcal{A}}^{2}}{Z_{1}} \in S_{0}.
+    \]
+    But $\ell \notin J_{0}$ is an ordinary monomial with $P_{k}(\ell) < \tau_{k}$ at every level.
+    In particular $e(\sigma) = e(\ell) - \kappa < 0$, excluding $\sigma$ from the polynomial part of $S_{0}$.
+    Its exponents are nonnegative, so Lemma~\ref{lem:G2} requires $P_{k}(\sigma) \ge \tau_{k}$ at some level for $\sigma$ to lie in $J_{0}$.
+    Level zero is excluded by $e(\sigma) < 0$.
+    For every $k \ge 1$,
+    \[
+        P_{k}(\sigma) = P_{k}(\ell) - s_{1} + 2u_{\mathcal{A}_{\le k}}
+        \le P_{k}(\ell) < \tau_{k}.
+    \]
+    This contradiction proves the theorem.
+\end{proof}
+
+\section{Evaluation on the algebraic blocks}
+\label{sec:transfer}
+
+Take the blocks of Proposition~\ref{prop:B} and fix a set $\Lambda$ of positive integers for which $2\sum_{i \in \Lambda,\, i > 1} u_{i} \le s_{1}$.
+At stage $N$ use the finite model for the first $N$ blocks, selecting the indices in $\Lambda \cap [1, N]$.
+Evaluation at $(y_{1}, \dots, y_{N})$ sends $Z_{i}$ to $z_{i}$ and preserves the value of each monomial.
+It can raise the value of a sum, since the $y_{i}$ satisfy algebraic relations.
+We construct an algebra of representatives on which every such relation belongs to $Z_{1}J_{0}$.
+
+\begin{definition}
+    \label{def:R}
+    For $l \ge 1$, $e \in \mathbb{Z}_{\ge 0}$ and $\mu \in \mathbb{Z}_{\ge 0}^{l}$, consider the inequalities
+    \[
+        e + \sum_{j = 1}^{i} \mu_{j}u_{j} \ge \tau_{i}
+        \qquad (0 \le i \le l).
+    \]
+    If $l$ is the first index for which the inequality holds, adjoin the monomial
+    \[
+        Q_{e, \mu, l} = \frac{\varpi^{e}Y^{\mu}}{Z_{l}}
+        = \varpi^{e - \kappa}\prod_{j = 1}^{l}Y_{j}^{\mu_{j} + 1}.
+    \]
+    Write $\rho_{e, \mu, l}$ for its evaluation.
+    In $k_{0}[Y_{i}^{\pm 1} : i \ge 1]$, let $\mathcal{E}_{N}$ be the $\mathcal{O}$-algebra on the $Y_{i}, Z_{i}$ with $i \le N$ and all the $Q_{e, \mu, l}$ with $l \le N$.
+    Set $\mathcal{E} = \bigcup_{N \ge 1}\mathcal{E}_{N}$ and $\mathcal{K}_{N} = \ker(\operatorname{ev}|_{\mathcal{E}_{N}})$, where $\operatorname{ev}$ sends each $Y_{i}$ to $y_{i}$ and fixes $k_{0}$.
+    In $K$ define
+    \[
+        R_{*} = \operatorname{ev}(\mathcal{E}), \qquad
+        J_{*} = \bigcup_{l \ge 1} z_{l}R_{*}, \qquad
+        S_{*}^{\Lambda} = \mathcal{O}[y_{i} : i \in \Lambda] + J_{*}.
+    \]
+\end{definition}
+
+\begin{lemma}
+    \label{lem:Rclaim}
+    The ring $R_{*}$ lies in $A \cap V$, and $J_{*}$ is an ideal of $R_{*}$.
+    In particular $S_{*}^{\Lambda}$ is a subring of $A \cap V$ containing $\mathcal{O}$.
+\end{lemma}
+
+\begin{proof}
+    For a generator $Q = Q_{e, \mu, l}$ the inequality at level $l$ gives
+    \[
+        v(Q) = v(\rho_{e, \mu, l}) = e + \sum_{j = 1}^{l}\mu_{j}u_{j} - s_{l}
+        \ge \tau_{l} - s_{l} = T_{l}.
+    \]
+    Lemma~\ref{lem:D} clears the denominator $\varpi^{\kappa}$ in its evaluation, so $\rho_{e, \mu, l} \in A \cap V$.
+    The other generators evaluate to $y_{i}, z_{i} \in A \cap V$.
+    The identity $z_{l} = y_{l + 1}z_{l + 1}$ makes $J_{*}$ an increasing union of ideals.
+\end{proof}
+
+\begin{lemma}
+    \label{lem:N}
+    If $g \in \mathcal{O}[Y_{1}, \dots, Y_{N}] \cap J_{0}$, then $g(y_{1}, \dots, y_{N}) \in J_{*}$.
+\end{lemma}
+
+\begin{proof}
+    By Lemma~\ref{lem:G2}, each term $cY^{\mu}$ of $g$ reaches the threshold $\tau_{i}$ at some index $i$.
+    Put $e = v(c)$ and take the first such $i$.
+    For $i = 0$ the coefficient belongs to $\varpi^{\kappa}\mathcal{O}$, and $\varpi^{\kappa} = y_{1}z_{1} \in J_{*}$.
+    For $i > 0$ the choice of generators gives
+    \[
+        cy^{\mu}
+        = (c\varpi^{-e})\left(\prod_{j = i + 1}^{N} y_{j}^{\mu_{j}}\right)
+          z_{i}\rho_{e, \mu_{\le i}, i} \in z_{i}R_{*}.
+    \]
+    Thus all the evaluated terms belong to $J_{*}$.
+\end{proof}
+
+\begin{lemma}
+    \label{lem:X}
+    At every finite stage $N$, we have $\mathcal{E}_{N} \subseteq R_{0}$ and $\mathcal{K}_{N} \subseteq Z_{1}J_{0}$.
+\end{lemma}
+
+\begin{proof}
+    Each $Z_{i}$ with $i \le N$ is $Z_{N}\prod_{i < j \le N}Y_{j}$, and each $Q_{e, \mu, i}$ uses only the first $i$ variables and has value at least $T_{i}$.
+    The defining generators of $\mathcal{E}_{N}$ therefore belong to $R_{0}$.
+
+    For the assertion about the kernel, first consider one product of these generators, written
+    \[
+        t = a\prod_{i = 1}^{N}Y_{i}^{p_{i}} Z_{i}^{b_{i}}\prod_{r}Q_{r}
+          = cY^{\beta},
+        \qquad a \in \mathcal{O} \setminus \{0\},\quad p_{i}, b_{i} \ge 0.
+    \]
+    Here $Q_{r} = Q_{e_{r}, \mu^{r}, l_{r}}$ and both products have finite length.
+    Suppose $\beta \notin B_{N}$ and let $l$ be the largest index with $\beta_{l} + \delta_{l}(\beta) \notin I_{l}$.
+    The estimate will use the level $k = \max(\{l\} \cup \{l_{r} : r\})$ so that it counts the full value of every $Q_{r}$.
+    Put $\delta = \delta_{l}(\beta)$, $\theta = \delta_{k}(\beta)$, $b_{\ge j} = \sum_{i = j}^{N}b_{i}$, $b_{>j} = \sum_{i = j + 1}^{N}b_{i}$ and $M_{j} = \sum_{r:\,l_{r} \ge j}(\mu^{r}_{j} + 1)$.
+    Then $\beta_{j} = p_{j} + M_{j} - b_{\ge j}$, so $\delta \le b_{>l}$ and $\theta \le \min(\delta, b_{>k})$.
+    Since $P_{k}(Z_{i}) = s_{\min(i, k)}$, the contribution of all the $Z_{i}$ to $P_{k}(t)$, less the pole correction $\theta s_{k}$, is
+    \[
+        \sum_{i = 1}^{k} b_{i}s_{i} + (b_{>k} - \theta)s_{k} \ge b_{\ge l} - \theta,
+    \]
+    using $s_{i} \ge 1$.
+    The remaining factors give
+    \begin{equation}
+        \label{eq:transfer-cost}
+        \varphi_{k}(t) \ge b_{\ge l} - \theta + p_{l}u_{l} + \sum_{r}v(Q_{r}).
+    \end{equation}
+
+    For a generator of level $l_{r} \ge l$, put $d_{r} = (\mu^{r}_{l} + 1)u_{l}$.
+    Its value is at least $d_{r} - \kappa$ by its formula, and at least $T_{l_{r}} \ge 2\kappa$ by its defining inequality.
+    Taking two thirds of the first bound and one third of the second gives $v(Q_{r}) \ge 2d_{r}/3$.
+    When $k > l$, one such generator has level $k$.
+    The first threshold reached by this generator is at $k$, so $e_r + \sum_{j = 1}^{l}\mu^{r}_{j}u_{j} < \tau_{l}$ and in particular $\mu^{r}_{l}u_{l} < \tau_{l}$.
+    Consequently $d_{r} < \tau_{l} + u_{l} = T_{l} + s_{l - 1} \le 3T_{l}/2$, and this generator contributes at least $T_{k} \ge T_{k} - T_{l} + 2d_{r}/3$.
+    The generators of level below $l$ have positive value.
+    Summing these bounds, including the case $k = l$, yields
+    \[
+        \sum_{r}v(Q_{r}) \ge T_{k} - T_{l} + \frac{2}{3} M_{l}u_{l}.
+    \]
+
+    The failed window now gives a lower bound at either end of $I_{l}$.
+    If $\beta_{l} + \delta < -L_{l}$, then $b_{\ge l} - \theta \ge b_{\ge l} - \delta \ge L_{l} + 1 > D_{l}/2$.
+    If $\beta_{l} + \delta \ge D_{l} - L_{l}$, then $p_{l} + M_{l} = \beta_{l} + b_{\ge l} \ge D_{l}/2$, since $b_{\ge l} \ge \delta$.
+    In the first case \eqref{eq:transfer-cost} gives at least $T_{k} - T_{l} + D_{l}/2$, and in the second at least $T_{k} - T_{l} + D_{l}u_{l}/3$.
+    As $u_{l} < \kappa$ and $\kappa \ge 1$, Proposition~\ref{prop:B} gives the common bound
+    \begin{equation}
+        \label{eq:transfer-threshold}
+        \varphi_{k}(t) \ge T_{k} - T_{l} + \frac{D_{l}u_{l}}{3\kappa}
+        \ge T_{k} + T_{l} + \Omega_{l}
+        \ge \tau_{k} + s_{1} + \Omega_{l}.
+    \end{equation}
+    The last inequality uses $s_{k} + s_{1} \le 2\kappa \le T_{l}$.
+
+    Let $\sigma_{N}$ denote the $\widehat{k}_{0}$-linear map from $F_{N}$ to the Laurent polynomial ring sending the window basis $y^{\gamma}$ to $Y^{\gamma}$ for $\gamma \in B_{N}$.
+    For the product $t$ above set
+    \[
+        m = Z_{l}^{\delta}\prod_{i = l + 1}^{N}Y_{i}^{\beta_{i}},
+        \qquad h = t/m.
+    \]
+    The monomial $h$ uses only the first $l$ variables.
+    Write $h(y) = \sum_{\gamma \in B_{l}} c_{\gamma}y^{\gamma}$ in the basis of Lemma~\ref{lem:WB}.
+    For every nonzero coefficient, Lemma~\ref{lem:WL} gives $v(c_{\gamma}Y^{\gamma}) \ge v(h) - \Omega_{l}$.
+    By Lemma~\ref{lem:W}, the exponents $(\gamma - \delta\mathbf{1},\,\beta_{>l})$ of $Y^{\gamma}m$ all belong to $B_{N}$, since the tail passes every window above $l$.
+    They are distinct, so
+    \[
+        \sigma_{N}(t(y)) = \sum_{\gamma \in B_{l}} c_{\gamma}Y^{\gamma}m.
+    \]
+    Multiplication of $m$ by any monomial in the first $l$ variables adds that monomial's value to $\varphi_{k}(m)$, since $k \ge l$ and the pole order above $k$ stays fixed.
+    Thus every term $x$ on the right, as well as $t$ itself, satisfies $\varphi_{k}(x) \ge \tau_{k} + s_{1}$ by \eqref{eq:transfer-threshold}.
+    Dividing $x$ by $Z_{1}Z_{N}$ lowers $P_{k}(x)$ by $s_{1} + s_{k}$ and can only decrease the pole order above $k$.
+    Hence $\varphi_{k}(x/(Z_{1}Z_{N})) \ge T_{k}$, so Lemma~\ref{lem:G1} gives $x \in Z_{1}Z_{N}R_{0} = Z_{1}J_{0}$.
+
+    We have proved $t - \sigma_{N}(t(y)) \in Z_{1}J_{0}$ for every product of generators whose exponent fails a window.
+    For exponents in $B_{N}$ this difference is zero by definition.
+    Every $\Pi \in \mathcal{K}_{N}$ is a sum of such products and satisfies $\sigma_{N}(\Pi(y)) = 0$.
+    Addition gives $\Pi \in Z_{1}J_{0}$.
+\end{proof}
+
+\section{The element without an atomic factorization}
+\label{sec:witness}
+
+\begin{proof}[Proof of Theorem~\ref{thm:dvr}]
+    Choose a strictly ascending chain of nonzero principal ideals in $R$ and apply Lemma~\ref{lem:normalize} with $A = R$.
+    For the blocks of Proposition~\ref{prop:B}, the partial sums of $\sum_{i \ge 1}u_i$ equal $\kappa - s_j$ at stage $j$ and are bounded by $\kappa - 1$.
+    Choose an integer $m \ge 1$ with $2\sum_{i > m}u_i \le s_1$ and take $\Lambda = \{i : i > m\}$ in Definition~\ref{def:R}.
+    This gives $S = S_{*}^{\Lambda}$ with $\mathcal{O} \subseteq S \subseteq R \cap V$.
+    The element $z_1 \in J_{*}$ is a nonzero nonunit of $S$ since $v(z_1) = s_1 \ge 1$.
+
+    For nonzero $f \in J_{*}$, write $f = z_j g$ with $g \in R_{*}$.
+    Pick $l \in \Lambda$ with $l > j$.
+    The identities between successive blocks give a factorization in $S$,
+    \[
+        f = y_l \left(z_l g\prod_{j < i < l} y_i\right).
+    \]
+    The second factor belongs to $J_{*}$.
+    Both factors have positive value, so neither is a unit and $f$ is reducible.
+    Every atom of $S$ therefore lies outside $J_{*}$.
+
+    Suppose $z_1 = f_1 \cdots f_r$ with $r \ge 1$ and each $f_i \in S \setminus J_{*}$.
+    Write $f_i = p_i(y) + z_{l_i} g_i$, where $p_i$ is a polynomial over $\mathcal{O}$ in the selected variables and $g_i \in R_{*}$.
+    Each $g_i$ is represented by an element $G_i \in \mathcal{E}$.
+    There is a finite stage $N$ containing all the indices used to form the $p_i$, $Z_{l_i}$, and $G_i$.
+    At this stage put $\Phi_i = p_i(Y) + Z_{l_i} G_i$.
+    Lemma~\ref{lem:X} puts $G_i$ in $R_{0}$, so $Z_{l_i} G_i \in J_{0}$ and $\Phi_i \in S_{0}$.
+    Since $f_i \notin J_{*}$, also $p_i(y) \notin J_{*}$.
+    Lemma~\ref{lem:N} gives $p_i(Y) \notin J_{0}$, hence $\Phi_i \notin J_{0}$.
+
+    Now $\Phi_1 \cdots \Phi_r - Z_1$ belongs to $\mathcal{E}_{N}$ and evaluates to zero.
+    The kernel inclusion of Lemma~\ref{lem:X} yields an identity
+    \[
+        \Phi_1 \cdots \Phi_r = Z_1(1 + h), \qquad h \in J_{0}.
+    \]
+    Theorem~\ref{thm:F} forces one of the $\Phi_i$ into $J_{0}$, a contradiction.
+    Every factorization of $z_1$ in $S$ thus has a factor in $J_{*}$, and every such nonzero factor can be split again.
+    In particular $z_1$ has no factorization into atoms.
+\end{proof}
+
+\begin{remark}
+    \label{rem:nonprime}
+    The ideal $J_{*}$ is not prime in $S$.
+    Indeed $s_j = s_{j + 1} + u_{j + 1} > 1$ for every $j$, so every nonzero element of $J_{*}$ has value strictly greater than one.
+    Thus $\varpi \notin J_{*}$, whereas $\varpi^{\kappa} = y_1 z_1 \in z_1 R_{*} \subseteq J_{*}$.
+    The product of $\kappa$ copies of $\varpi$ shows that the property proved for $z_1$ fails for another element of the same ideal.
+\end{remark}
+
+\section{A witness in the semilocal domain}
+\label{sec:semilocal}
+
+Let $D$ be a semilocal domain and write $K = \Frac(D)$.
+A chain in one localization can involve quotients that lie outside $D$.
+We first replace its generators by elements of $D$ that are units at all the other maximal ideals.
+This makes it possible to split elements of the constructed ideal after intersecting the local subring with $D$.
+
+\begin{proposition}
+    \label{prop:semilocal-witness}
+    Let $M$ be a maximal ideal of $D$ and suppose that $D_{M}$ contains a discrete valuation ring $\mathcal{O}$ with a uniformizer $\varpi \in D$.
+    Suppose also that $K$ is algebraic over $\Frac(\mathcal{O})$.
+    If $D_{M}$ fails ACCP, then $D$ contains a nonatomic subring.
+\end{proposition}
+
+\begin{proof}
+    Put $R = D_{M}$ and $\mathfrak{m} = MR$.
+    Since $R$ fails ACCP, it is a nonfield, and the proof of Lemma~\ref{lem:normalize} shows that $\mathfrak{m}$ is its only nonzero prime.
+    We first lift each nonzero $\xi \in R$ to an element $\eta \in D$ that generates $\xi R$ in $R$ and is a unit in $D_{P}$ at every maximal ideal $P \ne M$.
+    Write $\xi = a/b$ with $a \in D$ and $b \in D \setminus M$.
+    The ideal $a\mathfrak{m}$ of $R$ is nonzero and proper, so $\sqrt{a\mathfrak{m}} = \mathfrak{m}$.
+    Its contraction $I = a\mathfrak{m} \cap D$ has radical $M$ and is therefore comaximal with every other maximal ideal of $D$.
+    By the Chinese remainder theorem choose $\eta \in D$ congruent to $a$ modulo $I$ and to $1$ modulo every maximal ideal $P \ne M$.
+    Then $\eta/a \in 1 + \mathfrak{m}$, so $\eta R = \xi R$, as required.
+
+    Lift generators of a strictly ascending chain of nonzero principal ideals of $R$ in this way, obtaining $\eta_{0}, \eta_{1}, \dots$ in $D$.
+    The quotients $t_{i} = \eta_{i - 1}/\eta_{i}$ belong to $\mathfrak{m}$ and are units in every $D_{P}$ with $P \ne M$.
+    Thus $t_{i} \in D$, since $D$ is the intersection in $K$ of its localizations at maximal ideals.
+    Indeed, if $x$ belongs to every such localization, its denominator ideal $\{d \in D : dx \in D\}$ meets the complement of every maximal ideal and hence is $D$.
+
+    Apply Lemma~\ref{lem:normalize} and the construction in the proof of Theorem~\ref{thm:dvr} to the chain $\eta_{i}R$.
+    With the notation of Proposition~\ref{prop:B}, all the elements
+    \[
+        y_{j} = \prod_{a_{j - 1} < i \le a_{j}} t_{i},
+        \qquad z_{j} = \frac{\varpi^{\kappa}}{y_{1}\cdots y_{j}}
+    \]
+    belong to $R$.
+    At each other maximal ideal $P$ the $y_{j}$ are units of $D_{P}$, and $\varpi \in D$ gives $z_{j} \in D_{P}$ as well.
+    Consequently $y_{j}, z_{j} \in D$ for all $j$.
+
+    Take $S = S_{*}^{\Lambda}$ and $J_{*}$ from that construction and put $S' = S \cap D$.
+    The local proof gives $S \subseteq V$ and a positive-valued element $z_{1} \in S'$ for which every factorization in $S$ has a factor in $J_{*}$.
+    Consider a nonzero $f \in J_{*} \cap D$.
+    Write $f = z_{j}g$ with $g \in R_{*}$, and choose $l \in \Lambda$ with $l > j$.
+    Then $y_{l} \in S'$ and
+    \[
+        \frac{f}{y_{l}} = z_{l}g\prod_{j < i < l} y_{i} \in J_{*} \subseteq R.
+    \]
+    At all the other maximal ideals, division by the unit $y_{l}$ preserves membership in $D_{P}$.
+    Thus $f/y_{l}$ belongs to $J_{*} \cap D$.
+    Both $y_{l}$ and $f/y_{l}$ have positive value and are nonunits of $S'$.
+    Every factorization of $z_{1}$ in $S'$ is a factorization in $S$, hence includes a factor in $J_{*} \cap D$ which splits as above.
+    This proves that $z_{1}$ has no factorization into atoms of $S'$.
+\end{proof}
+
+\begin{lemma}
+    \label{lem:semilocal-base}
+    Suppose that $D$ is hereditarily atomic and is not a field.
+    In characteristic zero, $K$ is algebraic over $\mathbb{Q}$.
+    In characteristic $p > 0$, there is an element $\pi \in D$ transcendental over $\mathbb{F}_{p}$ for which $K$ is algebraic over $\mathbb{F}_{p}(\pi)$.
+    For every maximal ideal $M$ of $D$, there is a discrete valuation ring $\mathcal{O}_{M} \subseteq D_{M}$ with fraction field equal to the respective base field and with a uniformizer in $D$.
+\end{lemma}
+
+\begin{proof}
+    Suppose first that $D$ has characteristic zero.
+    Only finitely many rational primes are nonunits of $D$, since the contraction of each maximal ideal to $\mathbb{Z}$ contains at most one rational prime.
+    Choose a rational prime $q$ outside all of them.
+    It is a unit of $D$ and a nonunit of $\mathbb{Z}$.
+    Lemma~\ref{lem:transcendental-witness} and hereditary atomicity show that every element of $D$ is algebraic over $\mathbb{Q}$, so the same holds for $K$.
+    If $M \cap \mathbb{Z} = 0$, then $D_{M}$ contains $\mathbb{Q}$ and is algebraic over it.
+    Such a domain is a field, whereas $MD_{M}$ is nonzero since $D$ is a nonfield domain.
+    Thus $M \cap \mathbb{Z} = p\mathbb{Z}$ for a rational prime $p$, and $\mathcal{O}_{M} = \mathbb{Z}_{(p)} \subseteq D_{M}$ has uniformizer $p \in D$.
+
+    Now let $D$ have characteristic $p > 0$.
+    Its Jacobson radical contains a nonzero element $\pi$, obtained by multiplying a nonzero element from each maximal ideal.
+    If $\pi$ were algebraic over $\mathbb{F}_{p}$, the ring $\mathbb{F}_{p}[\pi]$ would be a field and $\pi$ a unit of $D$.
+    Thus $A = \mathbb{F}_{p}[\pi]$ is a polynomial ring and $1 + \pi$ is a nonunit of $A$.
+    It is a unit of $D$, so Lemma~\ref{lem:transcendental-witness} gives algebraicity over $\mathbb{F}_{p}(\pi)$ as before.
+    Every polynomial in $\pi$ with nonzero constant coefficient maps to a nonzero scalar modulo every maximal ideal of $D$.
+    Hence $A_{(\pi)} \subseteq D$ is a single DVR that works for all $M$.
+\end{proof}
+
+\begin{proposition}
+    \label{prop:semilocal-accp}
+    If $D$ is a semilocal hereditarily atomic domain, then $D$ and every localization $D_{M}$ at a maximal ideal satisfy ACCP.
+\end{proposition}
+
+\begin{proof}
+    The assertion for fields is immediate.
+    Otherwise Lemma~\ref{lem:semilocal-base} supplies a base for Proposition~\ref{prop:semilocal-witness} at each maximal ideal $M$.
+    Since every subring of $D$ is atomic, each $D_{M}$ satisfies ACCP.
+    If $D$ admitted a strictly ascending chain of nonzero principal ideals, the ratios of successive generators would be nonunits.
+    Finiteness of the set of maximal ideals gives a maximal ideal $M$ containing infinitely many of those ratios.
+    At each of these indices the localized chain would have a strict inclusion, contradicting ACCP in $D_{M}$.
+\end{proof}
+
+\section{Valuations that detect units of the semilocal domain}
+\label{sec:places}
+
+Let $D$ be a semilocal hereditarily atomic domain that is not a field, and put $K = \Frac(D)$.
+By Lemma~\ref{lem:semilocal-base}, $K$ is algebraic over a global field $F$.
+A unit of $D$ can be a nonunit of a subring $S$.
+To detect such an element one can dominate a localization of $S$ in which it is a nonunit.
+The resulting valuation ring omits its inverse and therefore omits part of $D$.
+We determine how many such valuations can occur on divisors of a fixed element.
+
+We take $F = \mathbb{Q}$ or $F = \mathbb{F}_p(\pi)$ as in that lemma.
+Every nontrivial valuation of $K$ has rank one, meaning that its value group embeds as an ordered subgroup of $\mathbb{R}$.
+To see this, let $v$ be such a valuation.
+For $x \in K^{\times}$, two nonzero terms in its minimal polynomial relation over $F$ have equal least value.
+Consequently some positive multiple of $v(x)$ belongs to $v(F^{\times})$.
+The restriction to $F$ is nontrivial, and its value group is cyclic.
+Indeed, a nontrivial valuation on $\mathbb{Q}$ is nonnegative on $\mathbb{Z}$ and positive on exactly one rational prime.
+In the rational function case it is trivial on $\mathbb{F}_p^{\times}$.
+If $v(\pi) < 0$, the leading term gives the value of each nonzero polynomial in $\pi$.
+If $v(\pi) \ge 0$, the contraction of the maximal ideal to $\mathbb{F}_p[\pi]$ is a nonzero prime, and every polynomial relatively prime to its generator has value zero.
+In each case, normalizing the positive generator of $v(F^{\times})$ to one identifies $v(K^{\times})$ with an ordered subgroup of $\mathbb{Q}$.
+
+\begin{lemma}
+    \label{lem:simultaneous-units}
+    Let $v_1, \dots, v_s$ be pairwise inequivalent nontrivial valuations of $K$ whose valuation rings do not contain $D$.
+    Given $\gamma_i \in v_i(K^{\times})$ for each $i$, there is a unit $u \in D^{\times}$ with $v_i(u) = \gamma_i$ for every $i$.
+\end{lemma}
+
+\begin{proof}
+    By weak approximation there is $x \in K^{\times}$ with $v_i(x) = \gamma_i$ for every $i$.
+    Indeed, choose $x_i$ of value $\gamma_i$ at $v_i$ and approximate so that $v_i(x - x_i) > \gamma_i$.
+    The Artin--Whaples approximation theorem applies to the inequivalent absolute values $x \mapsto \exp(-v_i(x))$ \cite[Theorem~1.1.3]{MR2183496}.
+
+    To obtain all these values on a unit, choose, for each $i$, an element $d_i \in D$ with $v_i(d_i) < 0$.
+    There is a positive integer $t$ such that at each valuation $v_i$ the negative numbers among $t^j v_i(d_j)$, $1 \le j \le s$, are pairwise distinct.
+    Each possible tie between two negative entries excludes at most one positive $t$.
+    Then $d = \sum_{j = 1}^{s}d_j^{t^j}$ has negative value at every $v_i$, since the least value occurs only once.
+    Choose nonzero $a, b \in D$ with $x = a/b$ and nonzero $h \in \bigcap_{M \in \operatorname{Max}(D)}M$.
+    Such $h$ exists by taking a product of one nonzero element from each maximal ideal.
+    Since the valuations have rank one, there is an integer $n$ large enough that both $hd^n a$ and $hd^n b$ have negative value at every $v_i$.
+    Their sums with $1$ are units of $D$, so
+    \[
+        u = \frac{1 + hd^n a}{1 + hd^n b} \in D^{\times},
+        \qquad v_i(u) = v_i(a) - v_i(b) = \gamma_i. \qedhere
+    \]
+\end{proof}
+
+\begin{proposition}
+    \label{prop:outside}
+    Every valuation ring $W$ of $K$ which does not contain $D$ is a DVR.
+    Each $z \in K^{\times}$ is a unit of all but finitely many such $W$.
+\end{proposition}
+
+\begin{proof}
+    Let $v$ have valuation ring $W$ with $D \nsubseteq W$.
+    Lemma~\ref{lem:simultaneous-units} gives $v(D^{\times}) = v(K^{\times})$.
+    In the atomic subring $T = D \cap W$, factor a $D$-unit of any prescribed positive value $\gamma$ into atoms.
+    Each factor $a$ is a $D$-unit with $v(a) > 0$, since a factor of value zero has its inverse in $T$.
+    If the value group contained $0 < \beta < v(a)$, a $D$-unit $b$ of value $\beta$ would split $a = b(a/b)$ into two positive-valued elements of $T$.
+    Thus $v(a)$ is the least positive value, and every positive $\gamma$ is a sum of copies of it.
+    The value group is discrete cyclic, so $W$ is a DVR.
+
+    For the second assertion, suppose that some $z \in K^{\times}$ has nonzero value at infinitely many distinct valuation rings omitting part of $D$.
+    Pass to a sequence of such rings on which the sign of the value of $z$ is constant.
+    The field $K$ is countable, since it is algebraic over the countable field $F$.
+    Enumerate $K^{\times}$ and successively pass to infinite subsequences on which the sign of the value of the next element is constant.
+    Taking a diagonal subsequence gives pairwise distinct rings along which the sign for every fixed element is eventually constant.
+
+    The elements with eventually nonnegative value, together with zero, form a subring $W_{\infty}$ by the valuation inequalities.
+    For each nonzero $x$, at least one of $x, x^{-1}$ belongs to it, so $W_{\infty}$ is a valuation ring.
+    An element has positive value there precisely when its values along the sequence are eventually positive, and it is a unit there precisely when they are eventually zero.
+    The sign chosen for $z$ makes $W_{\infty}$ nontrivial.
+    Discard $W_{\infty}$ itself if it occurs in the sequence.
+
+    Choose nonzero $h \in D$ of positive value at $W_{\infty}$.
+    If $D \subseteq W_{\infty}$, some such $h$ exists since otherwise every nonzero element of $D$ and consequently of $K$ would be a unit there.
+    If $D \nsubseteq W_{\infty}$, Lemma~\ref{lem:simultaneous-units} even gives such $h$ in $D^{\times}$.
+    After discarding finitely many terms, $h$ has positive value throughout the sequence.
+
+    We select a subsequence $W_1, W_2, \dots$ with normalized valuations $w_i$ and construct units $u_n \in D^{\times}$ such that
+    \[
+        w_n(u_n) = 1, \qquad w_i(u_n) = 0 \ (i \ne n),
+        \qquad u_n \in W_{\infty}^{\times}.
+    \]
+    Having chosen the first $n - 1$ pairs, choose $W_n$ sufficiently far along the sequence that each earlier $u_i$ is a unit there.
+    Lemma~\ref{lem:simultaneous-units} prescribes the value one at $W_n$ and zero at the earlier chosen rings.
+    If $W_{\infty}$ omits some element of $D$, include it in the prescription with value zero.
+    If it contains $D$, it contains each $D$-unit and its inverse.
+    This produces $u_n$, and each subsequent choice of ring preserves the required zero values.
+
+    Consider the subring and its prime ideal
+    \[
+        S = D \cap W_{\infty} \cap \bigcap_{n \ge 1}W_n,
+        \qquad P = S \cap \mathfrak{m}_{W_{\infty}}.
+    \]
+    We have $h \in P$.
+    For any nonzero $y \in P$, all sufficiently large $n$ satisfy $w_n(y) > 0$, hence $w_n(y) \ge 1$.
+    For such $n$ we have $u_n \in S$ and $y/u_n \in P$.
+    Indeed, division by $u_n$ preserves membership in $D$, preserves the value at $W_{\infty}$ and all $W_i$ for $i \ne n$, and leaves a nonnegative value at $W_n$.
+    Both factors of $y = u_n(y/u_n)$ are nonunits of $S$.
+    Thus $P$ has no atoms, whereas a factorization of $h$ into atoms would place one of those atoms in $P$ by primality.
+    This contradicts hereditary atomicity of $D$ and proves the finiteness assertion.
+\end{proof}
+
+\section{Passing ACCP to every subring}
+\label{sec:hereditary}
+
+\begin{lemma}
+    \label{lem:unit-bound}
+    Let $D$ be a nonfield semilocal hereditarily atomic domain and let $0 \ne z \in D$.
+    There is an integer $B_D(z)$ such that, for every subring $S \subseteq D$ and every decomposition $z = b a_1 \cdots a_r$ with $b \in S$ and $a_i \in S \setminus S^{\times}$, at most $B_D(z)$ of the $a_i$ are units of $D$.
+\end{lemma}
+
+\begin{proof}
+    Let $\mathcal{W}(z)$ be the valuation rings $W$ of $\Frac(D)$ such that $D \nsubseteq W$ and $z \in \mathfrak{m}_W$.
+    By Proposition~\ref{prop:outside} this set is finite and each $W$ in it has a valuation $w_W$ normalized to have value group $\mathbb{Z}$.
+    We claim that one can take
+    \[
+        B_D(z) = \sum_{W \in \mathcal{W}(z)} w_W(z).
+    \]
+
+    For each $a_i$ that is a unit of $D$, choose a maximal ideal $P$ of $S$ containing $a_i$.
+    There is a valuation ring $W$ of $\Frac(D)$ dominating $S_P$ \cite{Stacks}.
+    In particular $W$ contains $S$ and $a_i \in \mathfrak{m}_W$.
+    Its inverse lies in $D$ and lies outside $W$, so $D \nsubseteq W$.
+    All factors of $z$, including $b$, belong to $W$.
+    Hence $z \in \mathfrak{m}_W$, and we can assign this index $i$ to $W \in \mathcal{W}(z)$.
+    At any $W$ receiving an index every factor has nonnegative value, and each assigned factor has value at least one.
+    Thus at most $w_W(z)$ indices can be assigned to $W$.
+    Summing over $\mathcal{W}(z)$ gives the bound.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:hereditary}]
+    A domain satisfying ACCP is atomic by the splitting argument in Section~\ref{sec:intro}.
+    Applying this to each subring proves that hereditary ACCP implies hereditary atomicity.
+
+    Suppose now that $D$ is hereditarily atomic.
+    Proposition~\ref{prop:semilocal-accp} gives ACCP both for $D$ and for each $D_M$.
+    Assume first that $D$ is not a field, and let $S$ be any subring of $D$.
+    If $S$ fails ACCP, there are nonzero $x_0, x_1, \ldots \in S$ with $x_{i - 1} = a_i x_i$ and $a_i \in S \setminus S^{\times}$ for $i \ge 1$.
+    The chain $x_0D \subseteq x_1D \subseteq \cdots$ stabilizes, so $a_i \in D^{\times}$ from some index onward.
+    But for every $r$ we have $x_0 = x_r a_1 \cdots a_r$ in $S$.
+    Lemma~\ref{lem:unit-bound} bounds the number of $D$-units among these $r$ quotients by the same integer $B_D(x_0)$, a contradiction.
+
+    Finally suppose that $D$ is a field.
+    A subring $S$ that is a field already satisfies ACCP.
+    Otherwise choose a nonzero maximal ideal $P$ of $S$ and a valuation ring $V$ of $\Frac(S)$ dominating $S_P$ \cite{Stacks}.
+    We have $S \subseteq V \subseteq \Frac(S) \subseteq D$.
+    The maximal ideal of $V$ contains $P$, so $V$ is a nonfield local domain.
+    Every subring of $V$ is atomic because it is a subring of $D$.
+    The nonfield case just proved applies to $V$ and gives ACCP for its subring $S$.
+\end{proof}
+
+\begin{samepage}
+    \paragraph{Authorship.}
+    Astra 6.2 authored this manuscript in full.
+    Claude Opus 5.5 discovered the DVR result (Theorem~\ref{thm:dvr}).
+    The proofs received independent AI review.
+    Human verification of the full proof is pending.
+    \par
+\end{samepage}
+
+\begin{thebibliography}{9}
+    \bibitem{CGH}
+    J.~Coykendall, F.~Gotti and R.~E.~Hasenauer, Hereditary atomicity in integral domains,
+    \emph{J. Pure Appl. Algebra} \textbf{227} (2023), no.~4, 107249.
+    \href{https://doi.org/10.1016/j.jpaa.2022.107249}{doi:10.1016/j.jpaa.2022.107249}.
+
+    \bibitem{MR2183496}
+    A.~J.~Engler and A.~Prestel, \emph{Valued Fields},
+    Springer Monographs in Mathematics, Springer, Berlin, 2005.
+    \href{https://doi.org/10.1007/3-540-30035-X}{doi:10.1007/3-540-30035-X}.
+
+    \bibitem{Grams}
+    A.~Grams, Atomic rings and the ascending chain condition for principal ideals,
+    \emph{Proc. Cambridge Philos. Soc.} \textbf{75} (1974), 321--329.
+    \href{https://doi.org/10.1017/S0305004100048532}{doi:10.1017/S0305004100048532}.
+
+    \bibitem{Stacks}
+    The Stacks Project Authors, \emph{The Stacks Project}, Lemma~10.50.2.
+    \href{https://stacks.math.columbia.edu/tag/00IA}{Tag 00IA}.
+\end{thebibliography}
+
+\end{document}

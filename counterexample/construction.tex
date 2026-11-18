@@ -1,0 +1,232 @@
+\section{The simultaneous polynomial construction}
+\label{sec:construction}
+
+Write $U_i$ for the $i$th term of the sequence $b_0, b_1, q_0, b_2, q_1, \ldots$, beginning with $i = 1$.
+At stage $i$ we shall construct $U_i = F_i / B_i$, where $F_i \in \mathbb{Q}[t]$ is monic irreducible and $B_i$ is a power of $F_1 \cdots F_{i - 1}$.
+For the first stage take $B_1 = 1$.
+The issue is that the subring $T$ to be studied later is arbitrary.
+Lemma~\ref{lem:extraction} will produce elements of $T$ which are products of powers of the $U_h$.
+The exponents are bounded in terms of one element of $T$, and the exponent of the last generator occurring is positive.
+We can therefore prescribe the behaviour of all possible products in advance, using at stage $i$ the finite list
+\[
+    \mathcal{W}_i
+    = \left\{U_i^{a} \prod_{h < i} U_h^{k_h}
+      \ \middle|\ a, k_h \in \mathbb{Z},\ 1 \le a \le i,\ |k_h| \le i\right\}.
+\]
+Here and below a retained geometric point is a point of $\overline{\mathbb{Q}}$ at which every $F_i$ is nonzero.
+
+The pole and separation conditions below will recover $\mathbb{Q}T$ in Section~\ref{sec:curve}.
+The two arithmetic conditions have different jobs in Section~\ref{sec:conductor}.
+Coefficient congruences put a power of $(t - \alpha_p)(t - \beta_p)$ in the local conductor, and large derivatives remove repeated factors.
+All derivatives are formal derivatives with respect to $t$.
+
+\begin{proposition}[Simultaneous realization]
+    \label{prop:construction}
+    The polynomials $F_i$, the powers $B_i$, and the arguments $\alpha_p, \beta_p$ can be chosen with all of the following properties.
+    \begin{enumerate}
+        \item The $U_i$ have the primary valuations in \eqref{eq:profiles} and valuation zero at every guard.
+        For each nonzero $f \in \mathbb{Q}(t)$, its primary valuations eventually equal $v_E(f)$, and its guard valuations vanish with finitely many exceptions.
+        The elements $a_0 = t$ and $a_{n + 1} = a_n b_{n + 1} / q_n$ belong to $D$ and satisfy $a_n - 1 \in mD$ eventually for each integer $m \ge 1$.
+        \item Each $w \in \mathcal{W}_i$ has the form
+        \begin{equation}
+            \label{eq:scheduled-word}
+            w = F_i^{a} / H_{i, w},
+        \end{equation}
+        where $H_{i, w}$ is a monic product of earlier polynomials, fixed before $F_i$ is chosen.
+        Each $w$ has a pole at infinity and at every root of every earlier $F_h$.
+        \item For each pair of distinct retained geometric points $\lambda, \mu$, all $w \in \mathcal{W}_i$ satisfy $w(\lambda) \ne w(\mu)$ once $i$ is sufficiently large.
+        For each retained $\lambda$, eventually every such $w$ satisfies $w'(\lambda) \ne 0$.
+        At either argument $\gamma$ over any fixed prime $p$,
+        \[
+            \max_{w \in \mathcal{W}_i} \nu_p(w'(\gamma)) \longrightarrow -\infty.
+        \]
+        \item Fix a prime $p$ and an integer $s \ge 0$.
+        Set $A_s = \mathbb{Z}_p[p^s t]$, $L_p(t) = (t - \alpha_p)(t - \beta_p)$ and $g = p^{2s} L_p(t) \in A_s$.
+        For every sufficiently large $i$ and every listed word $w = F_i^a/H_{i, w}$,
+        \begin{equation}
+            \label{eq:transfer-module}
+            g^a \in p^i (A_s + A_s w).
+        \end{equation}
+        Thus $g^a/p^i$ is a sum $u + v w$ with $u, v \in A_s$.
+        This formulation will allow us to use the estimate in any subring containing $A_s$ and $w$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \emph{The denominator and degree.}
+    Suppose the preceding stages are complete.
+    Express each of the finitely many products $\prod_{h < i} U_h^{k_h}$ on our list as a monomial in the preceding $F_h$ with integer exponents.
+    Take $B_i = (F_1 \cdots F_{i - 1})^{K_i}$, with $K_i$ larger than the absolute values of all these exponents.
+    If the older product has exponent $m_h$ on $F_h$, then $H_{i, w}$ has exponent $aK_i - m_h > 0$ on it.
+    For example, at stage two we may take $K_2 = 3$.
+    The listed words are $U_2^a U_1^k = F_2^a/F_1^{3a - k}$ with $1 \le a \le 2$ and $|k| \le 2$.
+    Even the largest positive older exponent leaves a factor of $F_1$ in the denominator.
+    Choose an integer $d_i \ge 5$ greater than all preceding degrees and large enough that $a d_i > \deg H_{i, w}$ throughout the list.
+    Once we have produced an irreducible $F_i$ of degree $d_i$, it will be distinct from every predecessor, and these inequalities will give all the asserted poles.
+
+    \emph{Assignment of the primes.}
+    At the start of stage $i$, the earlier evaluation arguments are fixed.
+    At every still unassigned prime the earlier polynomials have integral coefficients and unit constant terms.
+    This is vacuous at stage one and will follow at each later stage from the choice of coefficient ring and constant term in \eqref{eq:raw-constant}.
+    Thus every earlier polynomial is already a unit at any new primary argument in $p\mathbb{Z}_p$.
+    For a new guard we must also avoid the earlier roots modulo $p$.
+
+    Take an increasing sequence of integer cutoffs, choosing $M_i > 2^{4 + \sum_{h \le i} d_h}$ at this stage.
+    Let $S_i$ consist of the primes up to $M_i$, the previously assigned primes, and the primes where the desired primary profile of $U_i$ is positive.
+    For each newly assigned prime choose a transcendental element $\alpha_p \in \mathbb{Q}_p$ of the required valuation.
+    Every such valuation class is uncountable, whereas the elements algebraic over $\mathbb{Q}$ are countable.
+    At the first stage the finitely many primes in $S_1$ may have any nonzero guard residue.
+    At each later stage, a newly assigned $p$ exceeds $M_{i - 1}$.
+    Set $u = \lfloor\log_2 p\rfloor$ and choose a guard residue represented by an integer $w_p \in [u, 2u]$ at which no earlier $F_h$ vanishes modulo $p$.
+    Since $p > M_{i - 1}$, this interval supplies more distinct nonzero residues than the sum of the preceding degrees.
+    Choose a transcendental lift $\beta_p \in \mathbb{Z}_p$ of the selected residue.
+    Both arguments are now fixed permanently.
+
+    Choose a fresh prime $\ell > M_i$ outside $S_i$, and assign its arguments by the same rule, requiring also $w_\ell \not\equiv 1 \pmod{\ell}$.
+    The cutoff leaves enough residues for this additional exclusion, including at the first stage.
+    We use $\ell$ to enforce irreducibility at this stage and include it among the previously assigned primes at every later stage.
+    We choose the coefficients in $\mathbb{Z}[p^{-1} : p \in S_i]$.
+    The constant term $C_i = F_i(0)$ will have the form
+    \begin{equation}
+        \label{eq:raw-constant}
+        C_i = (-1)^{d_i} \prod_{p \in S_i} p^{-N_{p, i}},
+        \qquad N_{p, i} \in (\ell - 1)\mathbb{Z}_{> 0}.
+    \end{equation}
+    We determine the exponents $N_{p, i}$ after fixing the local targets for the two evaluations.
+    Whatever these exponents are, $C_i$ is a unit outside $S_i$ and $C_i \equiv (-1)^{d_i} \pmod{\ell}$.
+    At $\ell$ we impose
+    \[
+        F_i(t) \equiv (t - 1)^{d_i} \pmod{\ell},
+        \qquad F_i(1) \equiv \ell \pmod{\ell^2}.
+    \]
+    The first condition is compatible with the chosen constant term.
+    After the coefficients are specified modulo $\ell$, changing the linear coefficient by a multiple of $\ell$ achieves the second condition.
+    These conditions make $F_i(t + 1)$ Eisenstein at $\ell$.
+    They also make $F_i$ a unit at both arguments over $\ell$, since their residues are distinct from $1$.
+    Its denominator $B_i$ is a unit there by our choices of arguments.
+
+    \emph{Interpolation at the assigned arguments.}
+    At each $p \in S_i$ and each $\gamma \in \{\alpha_p, \beta_p\}$, let $h$ be the required valuation of $U_i(\gamma)$, taking $h = 0$ at a guard.
+    Prescribe a local target $\eta_{p, \gamma} = B_i(\gamma) p^h$ for $F_i(\gamma)$, with the following refinement when $U_i = q_n$.
+    At a branch where $h = 0$ and $a_n(\gamma)b_{n + 1}(\gamma)$ is a unit, use instead
+    \[
+        \eta_{p, \gamma} = B_i(\gamma) a_n(\gamma) b_{n + 1}(\gamma).
+    \]
+    The values on the right have already been defined at that stage.
+    Every target is nonzero, since evaluation at either transcendental argument is injective on $\mathbb{Q}(t)$.
+    Require $F_i(\gamma)/\eta_{p, \gamma} \in 1 + p^m\mathbb{Z}_p$, taking $m = 1$ for an ordinary target and $m = \max(1, n)$ for a refined one.
+    This preserves the required valuation.
+    At a refined target $a_{n + 1}(\gamma) = \eta_{p, \gamma}/F_i(\gamma)$, so the same relative congruence gives $\nu_p(a_{n + 1}(\gamma) - 1) \ge n$.
+
+    For each $p \in S_i$ let $A_p \in \mathbb{Q}_p[t]$ be the unique polynomial of degree at most one with $A_p(\gamma) = \eta_{p, \gamma} - \gamma^{d_i}$ at the two arguments.
+    Then $t^{d_i} + A_p(t)$ has the prescribed values.
+    Adding a scalar multiple of $L_p$ leaves both values fixed and changes the derivative at each of its two simple roots.
+    To prescribe the constant term as well, use $L_p(0) \ne 0$ and put
+    \begin{align*}
+        J_{p, i}(t) &= t^{d_i} + A_p(t) - A_p(0)L_p(t)/L_p(0), \\
+        F_{p, i}(t) &= C_i L_p(t)/L_p(0) + J_{p, i}(t).
+    \end{align*}
+    Here $J_{p, i}$, the targets $F_{p, i}(\gamma) = \eta_{p, \gamma}$, and all the $H_{i, w}$ are fixed independently of the exponents in \eqref{eq:raw-constant}.
+    For each $p \in S_i$ choose an integer $h_p \ge 0$ such that multiplying each polynomial in the finite list
+    \[
+        J_{p, i}(Z/p^s), \qquad H_{i, w}(Z/p^s)
+        \quad (0 \le s \le i,\ w \in \mathcal{W}_i)
+    \]
+    by $p^{h_p}$ gives coefficients in $\mathbb{Z}_p$.
+    Take $N_{p, i} \ge h_p + i$.
+    Here $N_{p, i} = -\nu_p(C_i)$, so division by $C_i$ raises each coefficient valuation by $N_{p, i}$.
+    Since $N_{p, i} - h_p \ge i$, this puts both $J_{p, i}(Z/p^s)/C_i$ and every $H_{i, w}(Z/p^s)/C_i$ in $p^i\mathbb{Z}_p[Z]$.
+
+    We may increase these exponents further before making the rational coefficient approximation.
+    At either $\gamma$ over $p$ the derivative of $F_{p, i}^{a}/H_{i, w}$ is affine in $C_i$.
+    The coefficient of $C_i$ in this derivative is
+    \[
+        \frac{a \eta_{p, \gamma}^{a - 1} L_p'(\gamma)}
+             {L_p(0) H_{i, w}(\gamma)}.
+    \]
+    It is nonzero because the roots of $L_p$ are simple and every factor of the denominator is nonzero at $\gamma$.
+    For each derivative on the finite list there is therefore a lower bound on $-\nu_p(C_i)$ beyond which the linear term has smaller valuation than the constant term and has valuation less than $-i$.
+    Choose the $N_{p, i}$ to exceed all the required local bounds and to be multiples of $\ell - 1$.
+    These choices are independent across $p$, since the other factors in \eqref{eq:raw-constant} are $p$-adic units.
+
+    \emph{Rational coefficients and geometric conditions.}
+    At each $p \in S_i$ require the free coefficients of $F_i$ to be sufficiently close to those of $F_{p, i}$ to preserve all the valuation, return, and derivative conditions just imposed.
+    Also require for every $0 \le s \le i$ that
+    \[
+        \bigl(F_i(Z/p^s) - F_{p, i}(Z/p^s)\bigr) / C_i
+            \in p^i \mathbb{Z}_p[Z].
+    \]
+    These are finitely many open conditions and contain a product of coefficient balls.
+    These local conditions can be met together with the conditions at $\ell$ by coefficients in $\mathbb{Z}[p^{-1} : p \in S_i]$.
+    Indeed, first multiply the local coefficient targets by a sufficiently large common product of powers of primes in $S_i$.
+    The resulting conditions contain ordinary integral congruence classes at these primes and at $\ell$, so the integer Chinese remainder theorem supplies a solution after this scaling.
+    Once one solution is fixed, each free coefficient may be varied independently by any integer multiple of a sufficiently divisible common integer.
+    Thus the available coefficient vectors contain a translate of a full integer grid in the affine space of monic degree-$d_i$ polynomials with constant term $C_i$.
+    Such a grid is Zariski dense over $\overline{\mathbb{Q}}$, by successive application of the univariate root bound.
+
+    Enumerate the elements of $\overline{\mathbb{Q}}$ once and for all.
+    Consider the first $i$ of them, discarding any root of a preceding $F_h$, and require $F_i$ to be nonzero at each remaining point.
+    At the same stage require every $w$ on our list to distinguish each pair of these points and to have nonzero derivative at each of them.
+    We check that each forbidden equality cuts out a proper algebraic subset of the free coefficient space.
+    Nonvanishing of $F_i(\lambda)$ is automatic at zero and can be arranged at nonzero $\lambda$ by varying the linear coefficient.
+    If $\lambda, \mu$ are distinct and nonzero, their evaluation rows on the coefficients of $t, t^2$ are $(\lambda, \lambda^2)$ and $(\mu, \mu^2)$, which are independent.
+    Thus $F_i(\lambda)/F_i(\mu)$ varies nontrivially.
+    If either point is zero, its value is the fixed nonzero constant and the other value varies.
+    As the values of $H_{i, w}$ at these points are fixed and nonzero, equality of the two values of $F_i^a/H_{i, w}$ gives a proper exclusion.
+    At nonzero $\lambda$ the rows $(\lambda, \lambda^2)$ and $(1, 2\lambda)$ are independent, so the logarithmic derivative $F_i'(\lambda)/F_i(\lambda)$ varies.
+    At zero it is the free linear coefficient divided by $C_i$.
+    Vanishing of $w'(\lambda)$ would require $aF_i'(\lambda)/F_i(\lambda) = H_{i, w}'(\lambda)/H_{i, w}(\lambda)$, again a proper exclusion.
+    There are only finitely many exclusions at any one stage, and the grid meets their common complement.
+    This completes the stage.
+    A point on the list which is still retained at stage $i$ remains on all subsequent lists and is protected from all subsequent numerators.
+    In particular every point retained in the final ring is tested at every sufficiently late stage, giving the geometric conclusions.
+
+    \emph{The divisibility estimate.}
+    Fix $p$ and $s$ as in part~4.
+    At every sufficiently late stage we have $p \in S_i$ and $s \le i$.
+    The formula for the interpolating polynomial gives
+    \[
+        \frac{F_{p, i}}{C_i} = \frac{L_p}{L_p(0)} + \frac{J_{p, i}}{C_i}.
+    \]
+    The coefficient bounds for $J_{p, i}$ and $H_{i, w}$ and the rational approximation to $F_{p, i}$ therefore give
+    \begin{equation}
+        \label{eq:local-coefficient-estimate}
+        \frac{F_i(Z/p^s)}{C_i} - \frac{L_p(Z/p^s)}{L_p(0)}
+        \in p^i\mathbb{Z}_p[Z],
+        \qquad
+        \frac{H_{i, w}(Z/p^s)}{C_i} \in p^i\mathbb{Z}_p[Z].
+    \end{equation}
+    Put $\lambda = p^{2s}L_p(0) \in \mathbb{Z}_p$ and substitute $Z = p^s t$.
+    We have $g = (p^s t - p^s\alpha_p)(p^s t - p^s\beta_p) \in A_s$.
+    The first estimate shows that $f_i = \lambda F_i(t)/C_i$ satisfies $f_i - g \in p^i A_s$, hence $f_i^a - g^a \in p^i A_s$.
+    On the other hand, clearing the denominator of the word gives
+    \[
+        f_i^a = w\,\lambda^a C_i^{1 - a}\,\frac{H_{i, w}(t)}{C_i}
+        \in p^i A_s w .
+    \]
+    Indeed $a \ge 1$, $1/C_i \in \mathbb{Z}_p$, and the second estimate in \eqref{eq:local-coefficient-estimate} applies to its last factor.
+    Subtraction gives \eqref{eq:transfer-module} at this single finite stage.
+
+    \emph{Passage to all primes.}
+    At each prime assigned after stage $i$, the coefficients of $F_i$ are integral and its constant term is a unit.
+    Thus $F_i$ takes a unit value at the primary argument there.
+    Our residue exclusions give a unit at its guard as well.
+    Consequently the prescribed valuation vectors for $U_i$ hold even at primes whose arguments had yet to be chosen.
+    For a fixed nonzero polynomial $V \in \mathbb{Z}[t]$, the guard representatives $w_p$ tend to infinity and are $O(\log p)$ apart from the finite initial batch.
+    It follows that $0 < |V(w_p)| < p$ for all sufficiently large $p$.
+    Thus $V(\beta_p)$ is a unit at these primes.
+    Applying this to numerators and denominators proves the guard assertion for every rational function.
+    At primaries write a fixed such function as $t^k V(t)/W(t)$ with $V, W \in \mathbb{Z}[t]$ and $V(0)W(0) \ne 0$.
+    At every sufficiently late prime these two constant terms are units and $\nu_p(\alpha_p) = 1$, giving primary valuation $k$.
+
+    Finally, the profiles and the recursion give $a_n$ primary values zero at indices $j < 2n$, two at $j = 2n$, and one at $j > 2n$.
+    Its guard valuations are zero and $a_n \in B$, so $a_n \in D$.
+    Fix $m \ge 1$.
+    For each $p \mid m$, write $p = p_j$.
+    At every sufficiently late $q_n$ stage the prime has been assigned and $j < 2n$.
+    Formula~\eqref{eq:atoms-profile} gives primary value zero for $a_n$ there, and \eqref{eq:profiles} gives zero for $b_{n + 1}$ and $q_n$ there.
+    All three are also units at the guard, so both branches receive the refined target.
+    Taking $n \ge \nu_p(m)$ gives integral values of $(a_{n + 1} - 1)/m$ at both branches.
+    At all other primes $m$ is a unit, and the same quotient belongs to $B$ since $m$ is a nonzero rational constant.
+    The intersection defining $D$ gives $(a_{n + 1} - 1)/m \in D$ as asserted.
+\end{proof}

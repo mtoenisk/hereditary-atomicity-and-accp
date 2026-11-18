@@ -1,0 +1,140 @@
+\section{Maximal ideals, the Picard group, and a chain}
+\label{sec:structure}
+
+Write $P_j$ for the centre in $D$ of the primary evaluation over $p_j$, and $G_p$ for the centre of the guard over $p$.
+For a monic irreducible $h \in \mathbb{Q}[t]$ which is not inverted in $B$, write $H_h = D \cap hB$.
+Thus $H_t$ is the centre of $E$.
+We call the $P_j$ and $G_p$ vertical points and the $H_h$ horizontal points.
+For each of these points we use the normalized valuation on $\mathbb{Q}(t)$.
+
+\begin{lemma}
+    \label{lem:stalks}
+    The fraction field of $D$ is $\mathbb{Q}(t)$, its rational constants are $\mathbb{Z}$, and inverting the nonzero integers in $D$ gives $B$.
+    Its maximal ideals are precisely $P_j$, $G_p$, and $H_h$.
+    Their localizations are the corresponding discrete valuation rings.
+    In particular, $D$ is an almost Dedekind domain.
+\end{lemma}
+
+\begin{proof}
+    All arguments of evaluation are integral at their respective primes, so $\mathbb{Z}[t] \subseteq D$.
+    A rational constant belongs to $D$ precisely when it is integral at every rational prime.
+    For $x \in B \setminus \{0\}$, its order at $E$ is nonnegative.
+    By Proposition~\ref{prop:construction}, its primary values eventually equal that order, and its guard values eventually vanish.
+    A positive integer clears the finitely many negative vertical values of $x$.
+    This proves the assertions about the fraction field, constants, and localization at the integers.
+
+    Set
+    \[
+        f_{2n} = b_n,
+        \qquad
+        f_{2n + 1} = \frac{q_n^3}{b_n^2 b_{n + 1}^2}.
+    \]
+    By \eqref{eq:profiles}, $f_j$ has value three at $P_j$ and zero at every other displayed point.
+    The function $p_j^3/f_j$ has value three at $G_{p_j}$ and zero at every other displayed point.
+    In particular both functions belong to $D$.
+    If $V$ is either point over $p$ and $f$ is its corresponding function, then $\sqrt{fD} = V$.
+    Indeed, for $x \in D$ with $v_V(x) > 0$ we have $x^3/f \in D$, and the reverse inclusion follows by applying $v_V$.
+    Reduction at the argument maps $D$ onto $\mathbb{F}_p$, since $D$ contains $\mathbb{Z}$.
+    Its kernel $V$ is maximal.
+    Every prime of $D$ containing $p_j$ contains one of the factors in $p_j^3 = f_j(p_j^3/f_j)$, so it is one of the two displayed points over $p_j$.
+
+    The valuation ring at $V$ contains $D_V$.
+    Conversely, suppose $a, b \in D$, $b \ne 0$, and $v_V(a/b) \ge 0$.
+    The element $s = b^3/f^{v_V(b)}$ belongs to $D \setminus V$.
+    At each other displayed point, $f$ has value zero and $s(a/b) = ab^2/f^{v_V(b)}$ is integral.
+    It is integral at $V$ as well, so $a/b \in D_V$.
+    This valuation ring is discrete with value group $\mathbb{Z}$ because $v_V(p) = 1$.
+
+    The primes disjoint from the nonzero integers correspond to the primes of the localization $B$.
+    The latter is a localization of the PID $\mathbb{Q}[t]$.
+    For each nonzero surviving prime $hB$, its contraction $H_h$ is maximal among the primes disjoint from the nonzero integers.
+    To check maximality in $D$, choose a positive integer $d$ such that $g = dh$ belongs to $D$.
+    At any vertical point $V$, the associated function $f$ above is a unit in $B$.
+    Thus $g^3/f^{v_V(g)}$ belongs to $D \cap hB$ and has value zero at $V$.
+    Hence $H_h$ lies in no vertical maximal ideal.
+    Its localization is $B_{hB} = \mathbb{Q}[t]_{(h)}$.
+\end{proof}
+
+For an invertible fractional ideal $J$, let $v_M(J)$ be the exponent of $J D_M$ in the DVR $D_M$.
+We call the tuple of these exponents its profile.
+Write $e_M$ for the tuple with value one at $M$ and zero elsewhere, abbreviating $e_{P_j}$ to $e_j$.
+Let $\lambda$ have value one at $E$ and at every primary, and zero at all other points.
+
+\begin{proposition}
+    \label{prop:ideals}
+    The profiles of the invertible fractional ideals are precisely the integer tuples whose primary entries eventually equal their entry at $E$ and whose entries at the guards and the other horizontals have finite support.
+    The domain $D$ is an SP-domain, that is, every nonzero proper ideal is a finite product of radical ideals.
+    Moreover,
+    \[
+        D^\times = \{1, -1\},
+        \qquad
+        \operatorname{Pic}(D) \cong \bigoplus_{n \ge 0} \mathbb{Z}/3\mathbb{Z}.
+    \]
+\end{proposition}
+
+\begin{proof}
+    Ideals are determined by their localizations at all maximal ideals.
+    The profile map on invertible fractional ideals is therefore injective and takes products to sums.
+    By Lemma~\ref{lem:stalks}, $D$ is Pr\"ufer, so every nonzero finitely generated fractional ideal is invertible.
+    Its profile is the coordinatewise minimum of the profiles of a finite generating set.
+    The eventual values of rational functions from Proposition~\ref{prop:construction} imply the claimed restrictions.
+
+    At a vertical point $V$ over $p$, take the function $f$ used in Lemma~\ref{lem:stalks}.
+    The ideal $(p, f)$ has profile $e_V$, since $p$ has value one there and $f$ has value zero at every other point.
+    For a horizontal point $H_h$ other than $E$, the principal fractional ideal $hD$ has horizontal profile $e_{H_h}$ and finitely many nonzero vertical entries, since $h(0) \ne 0$.
+    Multiplying by integer powers of the vertical singleton ideals cancels these entries and realizes $e_{H_h}$.
+    Finally $tD$ has profile $\lambda + e_0$.
+    These singleton profiles and $\lambda$ generate every tuple in the statement.
+
+    To factor an arbitrary nonzero proper ideal $I$, let $m_M = v_M(I D_M)$, the least $v_M(x)$ for nonzero $x \in I$.
+    The profile of any fixed nonzero element of $I$ bounds all $m_M$ by a single integer $N$.
+    For each nonzero $x \in I$ and integer $k \ge 1$, the indicator of the set of points where $v_M(x) \ge k$ satisfies the restrictions just proved.
+    Let $J(x, k)$ be the invertible ideal with this profile.
+    It is integral because every entry is nonnegative.
+    The ideal $J_k = \sum_{0 \ne x \in I} J(x, k)$ has exponent one at $M$ if $m_M \ge k$, and zero otherwise.
+    Each $J_k$ is radical, as can be checked in the maximal localizations.
+    At each $M$ the exponents of $J_1, \ldots, J_N$ sum to $m_M$, giving $I = J_1 \cdots J_N$.
+
+    To compute the Picard group, quotient the group of profiles by the principal profiles.
+    Subtract the profiles of powers of the surviving irreducibles $h \ne t$ to clear the horizontal entries away from $E$.
+    Then subtract the profiles of powers of rational primes to clear the guards.
+    Every class now has a representative supported on the primaries and $E$.
+    A rational function with principal profile supported there has the form
+    \[
+        c t^m \prod_{n \ge 0} b_n^{s_n} q_n^{u_n},
+        \qquad
+        c \in \mathbb{Q}^\times,\quad m, s_n, u_n \in \mathbb{Z},
+    \]
+    with only finitely many nonzero $s_n, u_n$.
+    Indeed, factorization in $\mathbb{Q}[t]$ allows only $t$ and the inverted $F_i$ to occur.
+    Replacing each $F_i$ by the associated generator times its denominator in earlier $F_\ell$ gives the displayed form, working backwards from the largest index.
+    The functions $t$, $b_n$, and $q_n$ have value zero at every guard, so $\nu_p(c) = 0$ for every $p$, giving $c = \pm 1$.
+    If the function is a unit of $D$, its $E$-value gives $m = 0$, its odd primary values then give every $u_n = 0$, and its even primary values give every $s_n = 0$.
+
+    The principal profile of $t$ eliminates the entry at $E$, leaving a finitely supported primary tuple.
+    The profile of $q_n$ eliminates the odd entry $2n + 1$ with coefficient one and does not change any other odd entry.
+    The remaining classes are generated by $e_{2n}$.
+    In any principal relation supported on the even entries, the same $E$ and odd tests force $m = 0$ and every $u_n = 0$.
+    The remaining relations come exactly from the $b_n$, with profiles $3e_{2n}$.
+    This gives the asserted direct sum.
+\end{proof}
+
+\begin{corollary}
+    \label{cor:chain}
+    In $D$, the ideal $t^2 D$ starts an infinite strictly ascending chain of principal ideals.
+    Its successive ratios are multiplicatively independent modulo $\mathbb{Q}^\times$.
+\end{corollary}
+
+\begin{proof}
+    For each integer $j \ge 0$, put
+    \[
+        x_j = \frac{t^2}{\prod_{k = 0}^{j - 1} q_{2k}},
+        \qquad x_0 = t^2.
+    \]
+    The primary supports of $q_{2k}$ are the disjoint triples $\{4k, 4k + 1, 4k + 2\}$, and their largest entry is two.
+    All primary values of $t^2$ are at least two.
+    The denominators are units at every other displayed point, so $x_j \in D$.
+    Since $x_j = q_{2j} x_{j + 1}$ and $q_{2j}$ is a nonunit, $x_jD \subsetneq x_{j + 1}D$.
+    If a finite product of integral powers of the $q_{2k}$ is a rational constant $c$, evaluating the guards gives $c = \pm 1$.
+    Evaluating its primary coordinate $4k + 1$ now shows that the exponent of $q_{2k}$ is zero for every $k$.
+\end{proof}

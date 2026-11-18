@@ -1,0 +1,116 @@
+\section{Recovering the rational curve from unbounded lengths}
+\label{sec:curve}
+
+Fix a unital subring $T \subseteq D$ and a nonzero element $x \in T$.
+A decomposition of length $m$ means an equality $x = y_1 \cdots y_m$ with each $y_j$ a nonunit of $T$.
+The factors need not be atoms.
+By Proposition~\ref{prop:ideals}, $D^{\times} = \{1, -1\}$, so every nonunit of $T$ remains a nonunit of $D$.
+In particular, some defining valuation of $D$ is positive on each such factor.
+
+\begin{lemma}
+    \label{lem:extraction}
+    Suppose that $x$ has decompositions of arbitrarily large length in $T$, and set $r = \sup_{j \ge 0} v_j(x)$.
+    For every finite initial segment of the primary indices there is a divisor $y$ of $x$ in $T$ whose valuation is positive on a nonempty finite set of primaries beyond that segment and zero at all other defining places.
+    Up to sign, $y$ is a word in the $b_n$ and $q_n$ with integer exponents of absolute value at most $2r$ and positive exponent on the last generator occurring in construction order.
+    Such divisors can be chosen with their last stages tending to infinity.
+\end{lemma}
+
+\begin{proof}
+    The primary values of $x$ are eventually $v_E(x)$, so $r$ is finite.
+    Form a finite set $\mathcal{V}$ of places consisting of $E$, the specified primary segment, and the guards and other retained horizontal places at which $x$ has positive value.
+    Finiteness at the guards follows from Proposition~\ref{prop:construction}.
+    In any decomposition of $x$, all values of all factors are nonnegative.
+    At most $\sum_{v \in \mathcal{V}} v(x)$ factors have positive value somewhere in $\mathcal{V}$, since each such factor contributes at least one to this sum.
+    Take a longer decomposition and a factor $y$ undetected on $\mathcal{V}$.
+    At every guard and every horizontal place outside $\mathcal{V}$ the value of $x$ is zero, hence so is the value of $y$.
+    Since $v_E(y) = 0$, its primary values are eventually zero as well.
+    The factor $y$ is a nonunit, so its remaining primary support is nonempty.
+
+    Vanishing at every retained horizontal place makes $y$ a unit of $B$.
+    Unique factorization in $\mathbb{Q}[t]$ writes a unit of $B$ uniquely as a rational constant times a finite product of integer powers of the $F_i$.
+    At each stage the normalized generator is $F_i$ divided by a product of powers of earlier $F_j$, so successive substitution gives a unique expression in the normalized generators with the same constant.
+    Those generators are units at all guards, and the value of the constant at the guard over $p$ is its ordinary $p$-adic valuation.
+    Thus the constant is a sign.
+    Write
+    \[
+        y = \pm \prod_{n \ge 0} b_n^{s_n} q_n^{u_n},
+        \qquad g_j = v_j(y), \qquad u_{-1} = 0.
+    \]
+    By the profiles in \eqref{eq:profiles},
+    \[
+        u_n = g_{2n + 1},
+        \qquad
+        3s_n = g_{2n} - 2u_n - 2u_{n - 1}.
+    \]
+    All $g_j$ lie between zero and $r$ because $y$ divides $x$ in $D$.
+    It follows that $0 \le u_n \le r$ and $-4r \le 3s_n \le r$, which give the asserted bound.
+    If the last generator is $q_n$, its nonzero exponent $u_n$ is positive.
+    If it is $b_n$, both $q_n$ and, for $n \ge 1$, $q_{n - 1}$ occur later in construction order.
+    Their exponents therefore vanish, and the nonzero exponent $s_n$ equals $g_{2n}/3 > 0$.
+    Finally, any fixed initial list of generators meets only finitely many primary places.
+    Requiring the nonempty support of $y$ to lie beyond all these places forces its last stage beyond the list.
+\end{proof}
+
+The exponents in Lemma~\ref{lem:extraction} may have either sign away from the last stage.
+The predecessor powers in Proposition~\ref{prop:construction} were chosen for precisely these words.
+Put $R = 2r$ and choose such a sequence of divisors with strictly increasing last stages $i \ge R$.
+After multiplying by signs, the resulting elements of $T$ occur on the lists at those stages as $F_i^{a}/H$ with $1 \le a \le R$.
+We shall use the poles and geometric values of this sequence here and its $p$-adic estimates in Section~\ref{sec:conductor}.
+
+It is possible to distinguish every pair of geometric points and still miss $t$.
+For example, $k[t^2, t^3] \subsetneq k[t]$ over $k = \overline{\mathbb{Q}}$ separates points, since away from zero the quotient of $t^3$ by $t^2$ recovers the coordinate.
+At zero every element of the smaller ring has derivative zero, and the ideal $(t^2, t^3)$ cuts out the quotient $k[t]/(t^2)$ in the larger ring.
+The next lemma uses a nonzero derivative to rule out this last multiplicity.
+
+\begin{lemma}
+    \label{lem:curve-recognition}
+    Let $A$ be a $\mathbb{Q}$-subalgebra of $B$.
+    Suppose that each omitted geometric point, including infinity, is a pole of some member of $A$.
+    Suppose also that members of $A$ separate every pair of distinct retained geometric points and that at each retained point some member of $A$ has nonzero first derivative.
+    Then $A = B$.
+\end{lemma}
+
+\begin{proof}
+    Let $P/Q \in A$, with $P, Q \in \mathbb{Q}[t]$ coprime.
+    Choose polynomials $U, V \in \mathbb{Q}[t]$ with $UP + VQ = 1$.
+    Then $1/Q = U(P/Q) + V \in A[t]$.
+    For each $F_i$, a pole at a root of $F_i$ gives a denominator $Q$ divisible by $F_i$, whence $1/F_i = (Q/F_i)/Q \in A[t]$.
+    Thus $B = A[t]$.
+    At infinity the pole condition gives $h = P/Q \in A$ with $\deg{P} > \deg{Q}$.
+    The polynomial $P(X) - hQ(X) \in A[X]$ has $t$ as a root, and its leading coefficient is a nonzero rational number.
+    Dividing through by this coefficient shows that $t$ is integral over $A$, so $B$ is a finite $A$-module.
+
+    Put $k = \overline{\mathbb{Q}}$ and extend scalars to obtain a finite extension $A_k \subseteq B_k$, where $A_k = k \otimes_{\mathbb{Q}} A$ and $B_k = k \otimes_{\mathbb{Q}} B$.
+    We have $B_k = k[t, F_i^{-1} : i \ge 1]$.
+    Its maximal ideals are exactly the ideals $(t - \alpha)B_k$ at retained points $\alpha$.
+    Indeed $0$ as a geometric point is retained, so $B_k$ is not a field, and its nonzero primes come from the noninverted linear factors in $k[t]$.
+
+    Fix a maximal ideal $\mathfrak{m}$ of $A_k$.
+    By lying over it has a maximal ideal $(t - \alpha)B_k$ above it.
+    The residue field of $\mathfrak{m}$ embeds in $k$ and contains the constants $k$, hence equals $k$.
+    Evaluations at two points above $\mathfrak{m}$ would then agree on $A_k$, so the separation hypothesis makes $\alpha$ unique.
+    Choose $h \in A$ with $h'(\alpha) \ne 0$.
+    The ideal $\mathfrak{m}B_k$ contains $h - h(\alpha)$, a nonzero element with a simple zero at $\alpha$.
+    In the PID $B_k$ the only maximal ideal containing $\mathfrak{m}B_k$ is $(t - \alpha)B_k$, by uniqueness of the point above $\mathfrak{m}$.
+    Hence $\mathfrak{m}B_k = (t - \alpha)^e B_k$ for some $e \ge 1$, and the element with a simple zero forces $e = 1$.
+    Thus the fibre $B_k/\mathfrak{m}B_k$ equals $k$.
+
+    In particular the map $A_k/\mathfrak{m} \to B_k/\mathfrak{m}B_k$ is onto.
+    For the finite $A_k$-module $M = B_k/A_k$ this gives $M/\mathfrak{m}M = 0$.
+    Nakayama's lemma yields $M_{\mathfrak{m}} = 0$ for every maximal ideal $\mathfrak{m}$, so $A_k = B_k$.
+    Faithful flatness of $k$ over $\mathbb{Q}$ gives $A = B$.
+\end{proof}
+
+\begin{proposition}
+    \label{prop:generic}
+    If some nonzero element of $T$ has decompositions of arbitrarily large length in $T$, then $\mathbb{Q}T = B$.
+    In particular $nt \in T$ for some positive integer $n$.
+\end{proposition}
+
+\begin{proof}
+    Apply Lemma~\ref{lem:extraction} and take the listed words of increasing last stages described above.
+    They have a pole at infinity, and for every fixed $j$ a sufficiently late word has a pole at every root of $F_j$.
+    For each fixed pair of distinct retained points all sufficiently late words distinguish the pair, and at each fixed retained point all sufficiently late words have nonzero derivative, by Proposition~\ref{prop:construction}.
+    These words belong to $T$, so Lemma~\ref{lem:curve-recognition} applies to $A = \mathbb{Q}T$.
+    Since $\mathbb{Q}T$ is the localization of $T$ at the nonzero integers and contains $t$, a positive integer clears the denominator of $t$.
+\end{proof}

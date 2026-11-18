@@ -1,0 +1,80 @@
+\section{The domain and its divisor profiles}
+\label{sec:profiles}
+
+Write $K = \mathbb{Q}(t)$ and $v_E = \operatorname{ord}_{t = 0}$.
+Enumerate the rational primes in increasing order as $p_0, p_1, \ldots$.
+We use $\mathbb{Z}_p = \varprojlim_h \mathbb{Z}/p^h\mathbb{Z}$ and its fraction field $\mathbb{Q}_p$, with $\nu_p(p) = 1$.
+A condition $\nu_p(x - y) \ge h$ means $x - y \in p^h\mathbb{Z}_p$, and for integral $x, y$ this is agreement of their residues modulo $p^h$.
+For each $p$ we will choose two elements $\alpha_p, \beta_p \in \mathbb{Z}_p$ transcendental over $\mathbb{Q}$.
+We require $\beta_p$ to be a unit and impose
+\[
+    \nu_{p_j}(\alpha_{p_j}) =
+    \begin{cases}
+        2 & j = 0,\\
+        1 & j \ge 1.
+    \end{cases}
+\]
+
+For every $\gamma \in \{\alpha_p, \beta_p\}$, transcendence ensures that every nonzero polynomial in $\mathbb{Q}[t]$ has nonzero value at $\gamma$.
+Thus evaluation at $\gamma$ embeds $K$ into $\mathbb{Q}_p$.
+It defines the discrete valuation $f \mapsto \nu_p(f(\gamma))$ on $K$ and valuation ring $V_{p, \gamma}$, with uniformizer $p$.
+Write $v_j(f) = \nu_{p_j}(f(\alpha_{p_j}))$ for the \emph{primary} valuations and call the evaluations at $\beta_p$ the \emph{guards}.
+The $j$th primary and its guard lie over the same prime $p_j$.
+The consecutive primary indices $2n$ and $2n + 1$ lie over different primes.
+
+The other choices are distinct monic irreducible polynomials $F_i \in \mathbb{Q}[t]$, indexed by $i \ge 1$, with $F_i(0) \ne 0$.
+Set
+\begin{equation}
+    \label{eq:ring}
+    B = \mathbb{Q}[t, F_i^{-1} \ (i \ge 1)],
+    \qquad
+    D = B \cap \bigcap_p \bigl(V_{p, \alpha_p} \cap V_{p, \beta_p}\bigr)
+    \quad \text{inside } K.
+\end{equation}
+The \emph{retained horizontal points} are represented by the monic irreducible polynomials of $\mathbb{Q}[t]$ other than the $F_i$, including $t$ itself, which represents $E$.
+Over $\overline{\mathbb{Q}}$, these give all finite points except the roots of the $F_i$.
+The value at the point represented by $h$ is the exponent of $h$ in the numerator minus its exponent in the denominator.
+Membership in $D$ means that the values at all these horizontal points and both sorts of vertical evaluations are nonnegative.
+For $f \in K^{\times}$ we call their list the \emph{profile} of $f$.
+In particular, $x$ divides $y$ in $D$ precisely when the profile of $x$ is coordinatewise at most that of $y$, for nonzero $x, y \in D$.
+
+Let $e_j$ denote the sequence supported at the primary index $j$ with value one there.
+Introduce elements $b_n, q_n$ of $B^{\times}$ in the order
+\[
+    b_0,\ b_1,\ q_0,\ b_2,\ q_1,\ b_3,\ q_2,\ \ldots.
+\]
+At stage $i$ the corresponding element is $F_i$ divided by a power of the product of the earlier $F_l$.
+This change of generators is triangular, so the $b_n$ and $q_n$ freely generate $B^{\times}/\mathbb{Q}^{\times}$.
+All these elements must have guard value zero.
+Their required primary profiles, with $v(f) = (v_j(f))_{j \ge 0}$, are
+\begin{equation}
+    \label{eq:profiles}
+    v(b_n) = 3e_{2n},
+    \qquad
+    v(q_n) = 2e_{2n} + e_{2n + 1} + 2e_{2n + 2}.
+\end{equation}
+
+Two calculations explain these prescriptions.
+First, the supports of $v(q_{2j})$ are pairwise disjoint, and their entries are at most two.
+It follows that every finite product of distinct $q_{2j}$ divides $t^2$ in $D$.
+Second, put
+\[
+    a_0 = t,
+    \qquad
+    a_{n + 1} = \frac{a_n b_{n + 1}}{q_n}.
+\]
+Each $a_n$ has horizontal order one at $E$, all its other horizontal and guard orders vanish, and its primary profile is
+\begin{equation}
+    \label{eq:atoms-profile}
+    v_j(a_n) =
+    \begin{cases}
+        0 & j < 2n,\\
+        2 & j = 2n,\\
+        1 & j > 2n.
+    \end{cases}
+\end{equation}
+Indeed, $a_0$ has this profile by the choice of valuations of the $\alpha_p$.
+In the recursion the entries at $2n$ and $2n + 1$ lose two and one, respectively, and the entry at $2n + 2$ gains $3 - 2 = 1$.
+Thus $a_n \in D$.
+We will arrange in addition that for each fixed integer $m \ge 1$, the elements $a_n$ are eventually congruent to $1$ modulo $mD$.
+This condition will make them available as divisors in every subring containing $mD$.
