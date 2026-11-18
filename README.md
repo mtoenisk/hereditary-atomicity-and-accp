@@ -2,6 +2,8 @@
 
 If every unital subring of an integral domain is atomic, must the domain satisfy the ascending chain condition on principal ideals (ACCP)? These two manuscripts give a positive answer for semilocal domains and an unconditional counterexample in general.
 
+The [Lean theorem map](lean/THEOREMS.md) links all 46 numbered results in the two manuscripts to their formal proofs. The [package README](lean/README.md) explains how to check the proofs and import the libraries.
+
 A domain is **atomic** if every nonzero nonunit is a finite product of irreducibles. It is **hereditarily atomic** if every unital subring is atomic. Coykendall, Gotti, and Hasenauer conjectured that in a hereditarily atomic domain every unital subring satisfies ACCP. [*Hereditary atomicity in integral domains*, Conjecture 6.1](https://arxiv.org/abs/2112.00264)
 
 ## A hereditarily atomic domain without ACCP
@@ -32,7 +34,7 @@ The weak-ACCP and strong-atomicity counterexamples are announced here. Their pro
 
 ## Manuscripts and Lean proofs
 
-All results in both manuscripts have been formalized in Lean. The initial release contains the two manuscript PDFs and their LaTeX sources. The Lean source code will follow in a separate release.
+The November 17, 2026 manuscript edition is tagged `v1.0.0`. The companion release `lean-v0.1.0` includes that edition and the Lean 4.34.1 proofs. To cite a formalized result, give the manuscript title, theorem number, and Lean release tag.
 
 GPT-6.2 Astra discovered the counterexample in the first manuscript, building on earlier results discovered by GPT-6 Astra, Claude Opus 5.5, and Fable 5.2. GPT-6.2 Astra also wrote the semilocal manuscript. Claude Opus 5.5 discovered its theorem on constructing a nonatomic subring containing a prescribed discrete valuation ring.
 
