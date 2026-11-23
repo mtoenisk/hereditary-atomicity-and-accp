@@ -1,6 +1,6 @@
 # Variations on the construction
 
-This map follows §9 of the November 23, 2026 draft of *A Hereditarily Atomic Domain without ACCP*. The reviewed `main.tex` (revision `f5233d1`) has SHA-256 `1cd51d01cc025f8773039908808df8606895b0f2cc3975663f54a5a825cb829f`. The November 17 edition has its own [map of 46 numbered statements](THEOREMS.md).
+This map follows §9 of the November 23, 2026 draft of *A Hereditarily Atomic Domain without ACCP*. The reviewed `main.tex` (revision `24ed23d`) has SHA-256 `a43912b88130e84f3d98e9ab846112fee3327bf3e303a4193f7d3bfd41bd49b9`. The November 17 edition has its own [map of 46 numbered statements](THEOREMS.md).
 
 ## §9.1. Krull dimension and absolute transcendence degree
 
@@ -14,7 +14,9 @@ This map follows §9 of the November 23, 2026 draft of *A Hereditarily Atomic Do
 
 In the multivariate construction the primary tuples lie in $\mathbb Q_p$, and the ordinary guard tuples lie in finite unramified extensions of $\mathbb Q_p$. [Guard and primary evaluations](UnconditionalCounterexample/Variations/MultiDomainEvaluated.lean#L49)
 
-The observation about the polynomial extension $D[Y]$ applies Theorem 6.4(4) of Coykendall–Gotti–Hasenauer. The library supplies the divisibility of $t^2$ by each partial product of the even-indexed $q_{2j}$. [Square chain](UnconditionalCounterexample/Manuscript/Construction.lean#L212)
+Lean proves that $x_0=t^2$ starts a strict chain in $D$ with $x_n=q_{2n}x_{n+1}$ and each $q_{2n}$ a nonunit. [Square chain](UnconditionalCounterexample/Manuscript/Construction.lean#L212)
+
+The manuscript takes $z_n=Yx_n$ and lets $P=(z_0,z_1,\ldots)$ in $D[Y]$ and $C=\mathbb Z[q_0,q_2,\ldots]$. Evaluation at $Y=0$ fixes $C$ and vanishes on $P$, so $C\cap P=(0)$. The proof of Coykendall–Gotti–Hasenauer, Theorem 6.4(6), then shows that $z_0=Yt^2$ has no factorization into atoms in $C+P$.
 
 ## §9.2. Two chains witnessing failure of weak ACCP
 

@@ -14,7 +14,7 @@ from check_map import LEAN_NAME, check_declarations
 
 
 ROOT = Path(__file__).resolve().parent
-DIGEST = "1cd51d01cc025f8773039908808df8606895b0f2cc3975663f54a5a825cb829f"
+DIGEST = "a43912b88130e84f3d98e9ab846112fee3327bf3e303a4193f7d3bfd41bd49b9"
 HEADINGS = (
     "Krull dimension and absolute transcendence degree",
     "Two chains witnessing failure of weak ACCP",
