@@ -11,8 +11,8 @@ from urllib.parse import unquote, urlsplit
 
 LIBRARIES = {"Factorization", "HereditaryAtomicity", "UnconditionalCounterexample"}
 ROOT_FILES = {
-    ".gitignore", "README.md", "THEOREMS.md", "THIRD_PARTY.md", "LICENSE",
-    "CITATION.cff", "MODULES", "check_map.py", "lakefile.toml",
+    ".gitignore", "README.md", "THEOREMS.md", "ARXIV_THEOREMS.md", "STRICT_HIERARCHY.md", "THIRD_PARTY.md", "LICENSE",
+    "CITATION.cff", "MODULES", "check_map.py", "SECTION9.md", "check_variations.py", "lakefile.toml",
     "lake-manifest.json", "lean-toolchain",
 } | {f"{name}.lean" for name in LIBRARIES}
 SOURCE_DIRS = LIBRARIES | {"scripts", "checks", "examples"}
