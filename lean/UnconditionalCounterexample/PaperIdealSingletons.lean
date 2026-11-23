@@ -1,13 +1,13 @@
 import UnconditionalCounterexample.PaperIdealProfiles
+import UnconditionalCounterexample.PairedResidues
 
 /-!
 # Actual vertical singleton ideals
 
-The source's existing primary/guard isolators are units of the pole algebra,
-so they vanish in order at every retained horizontal place as well. The literal
-two-generator ideal (p,f) has minimum order one at the chosen vertical place and
-zero at every other place. Its actual finite generation and the proved DVR
-stalks make it an invertible fractional ideal of PaperConstruction.domain.
+The two-generator ideals (p,t) and (p,t-r) isolate the primary and guard
+coordinates over p when r lifts the guard residue. Their orders are the
+coordinatewise minima of the two generator orders. The same construction
+also supplies element isolators, used in the direct spectrum proof.
 -/
 
 noncomputable section
@@ -80,46 +80,166 @@ theorem prime_at_vertical (i : Vertical) :
   | inl j => exact EvaluationDVR.valuation_prime _ _
   | inr p => exact EvaluationDVR.valuation_prime _ _
 
-/-- A two-generator fractional ideal (p,f) has the exact vertical singleton
-profile, and is invertible by the actual DVR stalks of the constructed domain. -/
+/-- The literal two-generator fractional ideal $(p,t-r)$ in the common fraction field. -/
+def parameterPair (p : PrimeIndex) (r : ℤ) : Fractional :=
+  FractionalIdeal.spanSingleton domain⁰ (p.val : RatFunc ℚ) +
+    FractionalIdeal.spanSingleton domain⁰ (RatFunc.X - (r : RatFunc ℚ))
+
+private theorem translate_ne_zero (r : ℤ) : (RatFunc.X : RatFunc ℚ) - r ≠ 0 := by
+  let : Algebra ℚ (RatFunc ℚ) := RatFunc.instAlgebraOfPolynomial ℚ ℚ
+  intro hz
+  have he := sub_eq_zero.mp hz
+  exact (RatFunc.transcendental_X (K := ℚ)) (he ▸ isIntegral_intCast r).isAlgebraic
+
+private theorem pair_has_min (p : PrimeIndex) (r : ℤ) (l : Label) :
+    HasValue (parameterPair p r) (v l)
+      (min (DiscreteOrders.order (v l) (p.val : RatFunc ℚ))
+        (DiscreteOrders.order (v l) (RatFunc.X - (r : RatFunc ℚ)))) :=
+  (hasValue_spanSingleton (v l) (integral l) _ (Nat.cast_ne_zero.mpr p.property.ne_zero)).add
+    (hasValue_spanSingleton (v l) (integral l) _ (translate_ne_zero r))
+
+theorem parameterPair_isUnit (p : PrimeIndex) (r : ℤ) : IsUnit (parameterPair p r) := by
+  apply isUnit_of_fg _ _ (pair_has_min p r .limit).ne_zero
+  unfold parameterPair
+  rw [FractionalIdeal.coe_add, FractionalIdeal.coe_spanSingleton,
+    FractionalIdeal.coe_spanSingleton, Submodule.add_eq_sup]
+  exact (Submodule.fg_span_singleton _).sup (Submodule.fg_span_singleton _)
+
+private theorem pair_at_unit_prime (p : PrimeIndex) (r : ℤ) (l : Label)
+    (hp : v l (p.val : RatFunc ℚ) = 1) : HasValue (parameterPair p r) (v l) 0 := by
+  have hx : RatFunc.X - (r : RatFunc ℚ) ∈ domain :=
+    domain.sub_mem (PairedDomain.X_mem poles places) (intCast_mem domain r)
+  have hpos := (DiscreteOrders.order_nonneg_iff (v l) (translate_ne_zero r)).mpr (integral l ⟨_, hx⟩)
+  have hz := (DiscreteOrders.order_eq_zero_iff (v l) (Nat.cast_ne_zero.mpr p.property.ne_zero)).mpr hp
+  simpa only [hz, min_eq_left hpos] using pair_has_min p r l
+
+/-- On either evaluation branch over p, (p,t-r) has order one precisely
+when the evaluation point reduces to r. -/
+private theorem branch_min (p : PrimeIndex) (a : ℤ_[p.val]) (ha : Transcendental ℚ a.val) (r : ℤ) :
+    let w := EvaluationDVR.evaluationValuation p.val a.val ha
+    min (DiscreteOrders.order w (p.val : RatFunc ℚ))
+      (DiscreteOrders.order w (RatFunc.X - (r : RatFunc ℚ))) =
+        if PadicInt.toZMod a = (r : ZMod p.val) then 1 else 0 := by
+  let w := EvaluationDVR.evaluationValuation p.val a.val ha
+  change min (DiscreteOrders.order w _) (DiscreteOrders.order w _) = _
+  have hp : DiscreteOrders.order w (p.val : RatFunc ℚ) = 1 := by
+    simp [DiscreteOrders.order, w, EvaluationDVR.evaluationValuation]
+  rw [hp]
+  have hv : w (RatFunc.X - (r : RatFunc ℚ)) = Padic.mulValuation ((a - r : ℤ_[p.val]) : ℚ_[p.val]) := by
+    simp [w, EvaluationDVR.evaluationValuation, EvaluationDVR.valuation]
+  by_cases hr : PadicInt.toZMod a = (r : ZMod p.val)
+  · have hn : ¬ IsUnit (a - r) := by simp [padicInt_isUnit_iff_toZMod_ne_zero, hr]
+    have hvlt : w (RatFunc.X - (r : RatFunc ℚ)) < 1 := by
+      rw [hv]
+      simpa only [map_one] using (Padic.norm_lt_norm_iff_mulValuation_lt
+        (x := ((a - r : ℤ_[p.val]) : ℚ_[p.val])) (y := 1)).mp
+          (by simpa only [norm_one, ← PadicInt.norm_def] using PadicInt.not_isUnit_iff.mp hn)
+    rw [DiscreteOrders.value_eq_exp_neg_order w (translate_ne_zero r), exp_lt_one_iff] at hvlt
+    rw [ite_eq_left hr, min_eq_left (by omega)]
+  · have hu : IsUnit (a - r) := by simpa [padicInt_isUnit_iff_toZMod_ne_zero, sub_eq_zero] using hr
+    have hz : DiscreteOrders.order w (RatFunc.X - (r : RatFunc ℚ)) = 0 := by
+      apply (DiscreteOrders.order_eq_zero_iff w (translate_ne_zero r)).mpr
+      rw [hv]
+      exact mulValuation_eq_one_of_norm_eq_one _ (PadicInt.isUnit_iff.mp hu)
+    simp [hr, hz]
+
+private theorem primary_residue_zero (j : ℕ) : PadicInt.toZMod (places.primary j) = 0 := by
+  by_contra hn
+  apply PairedResidues.primary_not_isUnit places _ j ((padicInt_isUnit_iff_toZMod_ne_zero _).mpr hn)
+  apply PairedResidues.not_isUnit_of_valuation_pos
+  have he : (places.primary 0).val.valuation = 2 := PrimaryChoices.primary_zero
+  omega
+
+private theorem guard_residue_ne_zero (p : PrimeIndex) : PadicInt.toZMod (places.guard p) ≠ 0 :=
+  (padicInt_isUnit_iff_toZMod_ne_zero _).mp (construction.chain.guardChain.value_unit p)
+
+private theorem horizontal_prime_unit (p : PrimeIndex) (h : PrincipalProfiles.MonicIrreducible ℚ) :
+    HorizontalOrders.valuation h (p.val : RatFunc ℚ) = 1 := by
+  simpa only [map_natCast] using HorizontalOrders.valuation_constant h (p.val : ℚ)
+    (Nat.cast_ne_zero.mpr p.property.ne_zero)
+
+/-- On all maximal-ideal labels, the order of (p,t-r) is obtained by checking
+the residue of r at the two points over p. The prime itself is a unit elsewhere. -/
+private theorem pair_fiber_profile (j : ℕ) (r : ℤ) :
+    HasProfile v (parameterPair (places.primes j) r) (fun l => match l with
+      | .primary k => if j = k ∧ (r : ZMod (places.primes j).val) = 0 then 1 else 0
+      | .outside (.inl q) => if places.primes j = q ∧ PadicInt.toZMod (places.guard (places.primes j)) = r then 1 else 0
+      | _ => 0) := by
+  classical
+  intro l
+  cases l with
+  | limit => exact pair_at_unit_prime _ _ _ (horizontal_prime_unit _ _)
+  | primary k =>
+    by_cases hk : j = k
+    · subst k
+      have hm := pair_has_min (places.primes j) r (.primary j)
+      have he : min (DiscreteOrders.order (v (.primary j)) ((places.primes j).val : RatFunc ℚ))
+          (DiscreteOrders.order (v (.primary j)) (RatFunc.X - (r : RatFunc ℚ))) =
+          (if PadicInt.toZMod (places.primary j) = (r : ZMod _) then 1 else 0) :=
+        branch_min _ _ (places.primary_trans j) r
+      rw [he] at hm
+      simpa [primary_residue_zero, eq_comm] using hm
+    · simpa [hk] using pair_at_unit_prime (places.primes j) r (.primary k)
+        (PairedResidues.valuation_prime_eq_one_of_ne _ _ _ (fun h => hk (places.primes.injective (Subtype.ext h))))
+  | outside o =>
+    cases o with
+    | inr h => exact pair_at_unit_prime _ _ _ (horizontal_prime_unit _ _)
+    | inl q =>
+      by_cases hq : places.primes j = q
+      · subst q
+        have hm := pair_has_min (places.primes j) r (.outside (.inl (places.primes j)))
+        have he : min (DiscreteOrders.order (v (.outside (.inl (places.primes j)))) ((places.primes j).val : RatFunc ℚ))
+            (DiscreteOrders.order (v (.outside (.inl (places.primes j)))) (RatFunc.X - (r : RatFunc ℚ))) =
+            (if PadicInt.toZMod (places.guard (places.primes j)) = (r : ZMod _) then 1 else 0) :=
+          branch_min _ _ (places.guard_trans _) r
+        rw [he] at hm
+        simpa using hm
+      · simpa [hq] using pair_at_unit_prime (places.primes j) r (.outside (.inl q))
+          (PairedResidues.valuation_prime_eq_one_of_ne _ _ _ (fun h => hq (Subtype.ext h)))
+
+/-- The invertible fractional ideal (p,t) has precisely the primary singleton profile. -/
+theorem parameterIdeal_hasProfile (j : ℕ) :
+    HasProfile v (FractionalIdeal.spanSingleton domain⁰ ((places.primes j).val : RatFunc ℚ) +
+      FractionalIdeal.spanSingleton domain⁰ RatFunc.X)
+      (fun l => if l = verticalLabel (.inl j) then 1 else 0) := by
+  intro l
+  have h := pair_fiber_profile j 0 l
+  cases l with
+  | limit => simpa [parameterPair, verticalLabel] using h
+  | primary k => simpa [parameterPair, verticalLabel, eq_comm] using h
+  | outside o =>
+    cases o <;> simpa [parameterPair, verticalLabel, guard_residue_ne_zero] using h
+
+/-- For any integer lift of the guard residue, the literal (p,t-r) has
+precisely the guard singleton profile. -/
+theorem shiftedParameterIdeal_hasProfile (p : PrimeIndex) (r : ℤ)
+    (hr : (r : ZMod p.val) = PadicInt.toZMod (places.guard p)) :
+    HasProfile v (parameterPair p r)
+      (fun l => if l = verticalLabel (.inr p) then 1 else 0) := by
+  obtain ⟨j, rfl⟩ := places.primes.surjective p
+  have hn := guard_residue_ne_zero (places.primes j)
+  intro l
+  have h := pair_fiber_profile j r l
+  cases l with
+  | limit => simpa [verticalLabel] using h
+  | primary k => simpa [verticalLabel, hr, hn] using h
+  | outside o =>
+    cases o <;> simpa [verticalLabel, hr, eq_comm] using h
+
+/-- The two explicit ideals supply the vertical generators for profile realization. -/
 theorem exists_vertical_singleton (i : Vertical) :
     ∃ I : Fractionalˣ, HasProfile v I.val (fun l => if l = verticalLabel i then 1 else 0) := by
-  classical
-  obtain ⟨f, hf0, hf⟩ := exists_full_isolator i
-  let p : RatFunc ℚ := (verticalPrime i).val
-  have hp0 : p ≠ 0 := by
-    dsimp only [p]
-    exact Nat.cast_ne_zero.mpr (verticalPrime i).property.ne_zero
-  have hfK : (f : RatFunc ℚ) ≠ 0 := fun h => hf0 (Subtype.ext h)
-  let J : Fractional := FractionalIdeal.spanSingleton domain⁰ p + FractionalIdeal.spanSingleton domain⁰ (f : RatFunc ℚ)
-  have hJ : HasProfile v J (fun l => if l = verticalLabel i then 1 else 0) := by
-    intro l
-    have hm := (hasValue_spanSingleton (v l) (integral l) p hp0).add
-      (hasValue_spanSingleton (v l) (integral l) (f : RatFunc ℚ) hfK)
-    have hfval : DiscreteOrders.order (v l) (f : RatFunc ℚ) = if l = verticalLabel i then 3 else 0 := by
-      unfold DiscreteOrders.order
-      rw [hf]
-      split_ifs <;> simp
-    have hpnonneg : 0 ≤ DiscreteOrders.order (v l) p :=
-      (DiscreteOrders.order_nonneg_iff (v l) hp0).mpr (integral l ((verticalPrime i).val : domain))
-    by_cases hl : l = verticalLabel i
-    · have hpval : DiscreteOrders.order (v l) p = 1 := by
-        subst l
-        unfold DiscreteOrders.order
-        rw [prime_at_vertical]
-        simp
-      rw [hfval, hpval, ite_eq_left hl, min_eq_left (by norm_num : (1 : ℤ) ≤ 3)] at hm
-      simpa only [ite_eq_left hl] using hm
-    · rw [hfval, ite_eq_right hl, min_eq_right hpnonneg] at hm
-      simpa only [ite_eq_right hl] using hm
-  have hfg : (J : Submodule domain (RatFunc ℚ)).FG := by
-    rw [show J = FractionalIdeal.spanSingleton domain⁰ p + FractionalIdeal.spanSingleton domain⁰ (f : RatFunc ℚ) from rfl,
-      FractionalIdeal.coe_add, FractionalIdeal.coe_spanSingleton, FractionalIdeal.coe_spanSingleton,
-      Submodule.add_eq_sup]
-    exact (Submodule.fg_span_singleton p).sup (Submodule.fg_span_singleton (f : RatFunc ℚ))
-  have hu : IsUnit J := isUnit_of_fg J hfg (hJ (verticalLabel i)).ne_zero
-  refine ⟨hu.unit, ?_⟩
-  rw [hu.unit_spec]
-  exact hJ
+  cases i with
+  | inl j =>
+    have hu := parameterPair_isUnit (places.primes j) 0
+    refine ⟨hu.unit, ?_⟩
+    rw [hu.unit_spec]
+    simpa [parameterPair] using parameterIdeal_hasProfile j
+  | inr p =>
+    obtain ⟨r, hr⟩ := ZMod.intCast_surjective (PadicInt.toZMod (places.guard p))
+    have hu := parameterPair_isUnit p r
+    refine ⟨hu.unit, ?_⟩
+    rw [hu.unit_spec]
+    exact shiftedParameterIdeal_hasProfile p r hr
 
 end UnconditionalCounterexample.PaperIdealProfiles

@@ -2,6 +2,8 @@
 import Factorization.BFInstances
 import Factorization.Basic
 import Factorization.Bounds
+import Factorization.CommonDivisors
+import Factorization.CommonFactorDescent
 import Factorization.Definitions
 import Factorization.Descent
 import Factorization.DescentACCP
@@ -10,5 +12,8 @@ import Factorization.HereditaryHierarchy
 import Factorization.Hierarchy
 import Factorization.LengthSets
 import Factorization.OrderedGroup
+import Factorization.PrincipalChainAt
 import Factorization.PrincipalIdeals
+import Factorization.StrictHierarchy
 import Factorization.Transport
+import Factorization.WeakACCP
